@@ -1,5 +1,5 @@
 import './App.css';
-import HotelCard from './Components/HotelCard/HotelCard';
+import HotelCard from './components/HotelCard/HotelCard';
 
 function App() {
   return <HotelCard />
