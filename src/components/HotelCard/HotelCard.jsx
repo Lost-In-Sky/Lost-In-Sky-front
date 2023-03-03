@@ -39,7 +39,7 @@ export default function HotelCard() {
                     color="primary"
 
                 >
-                    More
+                    Book Now
                 </Button>
             </CardActions>
         </Card>

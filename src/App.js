@@ -1,12 +1,12 @@
 import './App.css';
-import SliderCard from './components/SliderCard/SliderCard';
-import HotelCard from './components/HotelCard/HotelCard';
+import Home from './components/Home/Home';
+import Navbar from "./components/Navbar/Navbar"
 
 function App() {
   return (
     <>
-      <SliderCard />
-      <HotelCard />
+    <Navbar />
+    <Home />
     </>
   )
 }
