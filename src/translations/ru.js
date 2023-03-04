@@ -1,9 +1,9 @@
 export default {
   home: "Главный",
   about: "О нас",
-  gallery: "Галирея",
+  gallery: "Галерея",
   contacts: "Контакты",
   booking: "Бронирование",
-  our_rooms: "Нашы Комнаты",
+  our_rooms: "Наши Комнаты",
   call: "Звоните",
 };

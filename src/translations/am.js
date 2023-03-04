@@ -2,7 +2,7 @@ export default {
   home: "Գլխավոր",
   about: "Մեր մասին",
   gallery: "Նկարներ",
-  contacts: "Կապ մեզ հետ",
+  contacts: "Հետադարձ կապ",
   booking: "Ամրագրում",
   our_rooms:"Մեր Սենյակները",
   call:"Զանգահարեք"
