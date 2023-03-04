@@ -1,7 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import logo from "../../assets/logo.png";
 import { useTheme } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
+import { LanguageSelector } from "../../helpers/LanguageSelector";
 import {
   StyledAppBar,
   StyledToolbar,
@@ -11,6 +13,7 @@ import {
   ItemsWrapper,
   LogoWrapper,
   UpperField,
+  LngCont,
 } from "./Navbar.styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -21,28 +24,36 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const [showMenu, setShowMenu] = useState(false);
   const [btnColor, setBtnColor] = useState(null);
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "am");
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (showMenu) {
-      document.body.classList.add('locked');
+      document.body.classList.add("locked");
     } else {
-      document.body.classList.remove('locked');
+      document.body.classList.remove("locked");
     }
-  }, [showMenu]);
+    i18n.changeLanguage(lang);
+  }, [showMenu, lang]);
 
   const handleMenuButtonClick = () => {
-
     setShowMenu(!showMenu);
   };
 
   const closeMenu = () => {
     setShowMenu(false);
-
   };
 
   const HeandleBtnCollor = (index) => {
-    setBtnColor(index)
-  }
+    setBtnColor(index);
+  };
+  const handleLanguageChange = useMemo(
+    () => (language) => {
+      setLang(language);
+    },
+    []
+  );
 
   return (
     <StyledAppBar
@@ -50,7 +61,9 @@ const Navbar = () => {
       style={{ color: "black", background: "white" }}
     >
       <UpperField>
-        <p>Call Us: +374 96 20 19 71</p>
+        <p>
+          {t("call")}: +374 91 45 05 81 <a href="tel:+37491450581" />
+        </p>
       </UpperField>
       <StyledToolbar>
         {isMobile && (
@@ -67,42 +80,60 @@ const Navbar = () => {
               href="#"
               showMenu={showMenu}
               btnColor={btnColor === 1}
-              onClick={() => { closeMenu(); HeandleBtnCollor(1) }}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(1);
+              }}
             >
-              Home
+              {t("home")}
             </StyledLink>
             <StyledLink
               href="#"
               showMenu={showMenu}
               btnColor={btnColor === 2}
-              onClick={() => { closeMenu(); HeandleBtnCollor(2) }}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(2);
+              }}
             >
-              Gallery
+              {t("gallery")}
             </StyledLink>
             <StyledLink
               href="#"
               showMenu={showMenu}
               btnColor={btnColor === 3}
-              onClick={() => { closeMenu(); HeandleBtnCollor(3) }}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(3);
+              }}
             >
-              Booking
+              {t("booking")}
             </StyledLink>
             <StyledLink
               href="#"
               showMenu={showMenu}
               btnColor={btnColor === 4}
-              onClick={() => { closeMenu(); HeandleBtnCollor(4) }}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(4);
+              }}
             >
-              Contacts
+              {t("contacts")}
             </StyledLink>
             <StyledLink
               href="#"
               showMenu={showMenu}
               btnColor={btnColor === 5}
-              onClick={() => { closeMenu(); HeandleBtnCollor(5) }}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(5);
+              }}
             >
-              About
+              {t("about")}
             </StyledLink>
+            <LngCont>
+              <LanguageSelector onLanguageChange={handleLanguageChange} />
+            </LngCont>
           </ItemsWrapper>
         </StyledNav>
       </StyledToolbar>

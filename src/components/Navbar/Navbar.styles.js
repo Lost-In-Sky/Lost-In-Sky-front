@@ -16,13 +16,13 @@ export const StyledToolbar = styled(Toolbar)`
 `;
 export const StyledNav = styled.nav`
   display: flex;
-
+  align-items: center;
 
   @media (max-width: 599px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-      background-color: black;
+    background-color: black;
     color: white;
     position: fixed;
     top: 0;
@@ -32,14 +32,14 @@ export const StyledNav = styled.nav`
     align-items: flex-start;
     z-index: 11;
     transition: all 0.3s ease-in-out;
-    
   }
 `;
 
-export const StyledLink = styled.a`
-  font-size: 16px;
+export const StyledLink = styled.div`
+  font-size: 20px;
+  height: 2rem;
   font-family: Poppins;
-  color:${(props) => (props.btnColor ? "#118acb" : "black")}; 
+  color: ${(props) => (props.btnColor ? "#118acb" : "black")};
   text-decoration: none;
   margin: 0 20px;
   position: relative;
@@ -65,7 +65,7 @@ export const StyledLink = styled.a`
 
   @media (max-width: 599px) {
     display: block;
-    color:white;
+    color: white;
     margin: 20px;
   }
 `;
@@ -78,11 +78,14 @@ export const MenuButton = styled(IconButton)`
   }
 `;
 export const ItemsWrapper = styled.div`
+  display: flex;
+
   @media (max-width: 599px) {
     margin-top: 8rem;
+    flex-direction: column;
   }
-  @media(min-width:850px){
-    margin-right:10rem
+  @media (min-width: 850px) {
+    margin-right: 10rem;
   }
 `;
 
@@ -108,7 +111,23 @@ export const UpperField = styled.div`
   font-size: 13px;
   color: #777;
   font-family: Poppins;
+  > p {
+    cursor: pointer;
+  }
   @media (max-width: 599px) {
     justify-content: center;
+  }
+`;
+
+export const LngCont = styled.div`
+  display: flex;
+  gap: 1rem;
+  height: 2rem;
+  font-size: 20px;
+  > p {
+    margin: unset;
+  }
+  @media (max-width:599px){
+    margin-left:10px;
   }
 `;

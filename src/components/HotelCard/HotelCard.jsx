@@ -9,39 +9,35 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 export default function HotelCard() {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down(390));
-    return (
-        <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
-            <CardActionArea >
-                <CardMedia component="img" height="200" image={image} alt="photo" />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Cottage 1
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Cotage has 2 floars, a king size bed and an option of one additional
-                        bed
-                    </Typography>
-                    <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                        marginTop={"2rem"}
-                    >
-                        100000 AMD
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button
-                    size="small"
-                    color="primary"
-
-                >
-                    Book Now
-                </Button>
-            </CardActions>
-        </Card>
-    );
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down(390));
+  return (
+    <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
+      <CardActionArea>
+        <CardMedia component="img" height="200" image={image} alt="photo" />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Cottage 1
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Cotage has 2 floars, a king size bed and an option of one additional
+            bed
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            marginTop={"2rem"}
+          >
+            100000 AMD
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Book Now
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
