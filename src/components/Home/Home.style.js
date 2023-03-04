@@ -8,12 +8,6 @@ export const CardWrapper = styled.div`
   justify-content: space-around;
   height: 20rem;
   gap: 3rem;
-
-  >div {
-    @media (max-width:599px) {
-        margin-right:unset;
-    }
-  }
 `;
 
 export const MainWrapper = styled.div`
