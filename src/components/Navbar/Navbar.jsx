@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import logo from "../../assets/logo.png";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../helpers/LanguageSelector";
 import {
@@ -21,7 +21,7 @@ import { useMediaQuery } from "@mui/material";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [showMenu, setShowMenu] = useState(false);
   const [btnColor, setBtnColor] = useState(null);
   const [lang, setLang] = useState(localStorage.getItem("lang") || "am");
