@@ -1,6 +1,7 @@
 import { FooterContainer, Wrapper } from "./Footer.style"
 import InstagramIcon from '@mui/icons-material/Instagram';
 import PhoneIcon from '@mui/icons-material/Phone';
+
 function Footer() {
 
   return (

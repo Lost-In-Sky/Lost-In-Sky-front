@@ -6,7 +6,7 @@ export const CardWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
-  height: 20rem;
+  height: 100%;
   gap: 3rem;
 `;
 
