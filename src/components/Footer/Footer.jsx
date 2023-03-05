@@ -19,7 +19,7 @@ function Footer() {
             marginwidth="0">
           </iframe>
           <Wrapper>
-            <p>{t("call")}: <a href="tel:+37491450581">+374 91 45 05 81</a></p>
+            <p>{t("contacts")}: <a href="tel:+37491450581">+374 91 45 05 81</a></p>
             <a href="https://www.instagram.com/lost._in._sky._hotel/">
               <img src={InstagramLogo} alt='instagram' />
             </a>
