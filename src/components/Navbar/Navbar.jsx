@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import logo from "../../assets/logo.png";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme } from '@mui/material/styles';
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../helpers/LanguageSelector";
 import {
@@ -15,8 +15,8 @@ import {
   UpperField,
   LngCont,
 } from "./Navbar.styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
 
 const Navbar = () => {

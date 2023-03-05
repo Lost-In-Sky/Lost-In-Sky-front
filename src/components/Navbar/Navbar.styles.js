@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AppBar, Toolbar, IconButton } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton } from "@mui/material";
 
 export const StyledAppBar = styled(AppBar)`
   background-color: white;
@@ -128,7 +128,7 @@ export const LngCont = styled.div`
   > p {
     margin: unset;
   }
-  @media (max-width:599px){
-    margin-left:10px;
+  @media (max-width: 599px) {
+    margin-left: 10px;
   }
 `;
