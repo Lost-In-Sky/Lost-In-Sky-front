@@ -1,7 +1,7 @@
 export const cotages = [
   {
     id: 1,
-    name: "number1",
+    name: "Sky",
     capacity: "2",
     space: "35sqm",
     numberOfFloors: "two",
@@ -11,7 +11,7 @@ export const cotages = [
   },
   {
     id: 2,
-    name: "number2",
+    name: "Air",
     capacity: "2",
     space: "35sqm",
     numberOfFloors: "two",
@@ -21,7 +21,7 @@ export const cotages = [
   },
   {
     id: 3,
-    name: "number3",
+    name: "Mountain",
     capacity: "2",
     space: "35sqm",
     numberOfFloors: "two",

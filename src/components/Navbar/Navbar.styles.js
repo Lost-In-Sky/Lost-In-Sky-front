@@ -38,7 +38,7 @@ export const StyledNav = styled.nav`
 export const StyledLink = styled.div`
   font-size: 20px;
   height: 2rem;
-  font-family: Poppins;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   color: ${(props) => (props.btnColor ? "#118acb" : "black")};
   text-decoration: none;
   margin: 0 20px;

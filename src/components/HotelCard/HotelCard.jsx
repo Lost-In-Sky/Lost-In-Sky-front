@@ -28,42 +28,41 @@ export default function HotelCard({ room }) {
     }
   }, [room]);
   return (
-    <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
-      <CardActionArea
-        onClick={() => {
-          setRoom(room);
-          navigate(`/room/${room.id}`);
-        }}
-      >
-        <CardMedia
-          component="img"
-          height="200"
-          image={coverImage}
-          alt="photo"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {room.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Cotage has 2 floars, a king size bed and an option of one additional
-            bed
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            marginTop={"2rem"}
-          >
-            {room.cost} {t("cost")}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          {t("book")}
-        </Button>
-      </CardActions>
-    </Card>
+      <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
+        <CardActionArea
+          onClick={() => {
+            setRoom(room);
+            navigate(`/room/${room.id}`);
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="200"
+            image={coverImage}
+            alt="photo"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {room.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t("dek")}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              marginTop={"2rem"}
+            >
+              {room.cost} {t("cost")}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            {t("book")}
+          </Button>
+        </CardActions>
+      </Card>
   );
 }

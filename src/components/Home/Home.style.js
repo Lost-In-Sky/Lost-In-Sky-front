@@ -8,6 +8,9 @@ export const CardWrapper = styled.div`
   justify-content: space-around;
   height: 100%;
   gap: 3rem;
+  &:hover {
+    box-shadow:  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const MainWrapper = styled.div`
