@@ -5,7 +5,7 @@ export default {
   contacts: "Հետադարձ կապ",
   booking: "Ամրագրում",
   our_rooms: "Մեր Սենյակները",
-  call: "Զանգահարեք",
+  call_us: "Զանգահարեք",
   our_contacts: "Մեր Կոնտակտները",
   village_yenokavan: "գյուղ Ենոքավան.",
   district: "Տավուշի մարզ, Հայաստան",
@@ -20,5 +20,6 @@ export default {
   pool:"բացօդյա ջակուզի",
   wifi:"անվճար WIFI",
   picnic:"բացօդյա հարթակ",
-  rope:"գամակ"
+  rope:"գամակ",
+  follow:"Հետևեք Մեզ"
 };

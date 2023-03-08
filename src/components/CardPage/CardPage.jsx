@@ -5,6 +5,8 @@ import {
   CardPageWrapper,
   RoomName,
   DekInfo,
+  RoomsCont,
+  OtherRooms,
   GenInfo,
 } from "./CardPage.style";
 import { RoomContext } from "../../Context/RoomsContext";
@@ -24,35 +26,44 @@ const CardPage = () => {
 
   console.log(room);
   return (
-    <CardPageWrapper>
-      <SliderWrapper>
-        <SliderCard images={slides} />
-      </SliderWrapper>
-      <RoomName>{room.name}</RoomName>
-      <DekInfo>
+    <>
+      <CardPageWrapper>
+        <SliderWrapper>
+          <SliderCard images={slides} />
+        </SliderWrapper>
+        <RoomName>{room.name}</RoomName>
+        <DekInfo>
+          <GenInfo>
+            <p>{t("dek")}</p>
+          </GenInfo>
+          <h1>{t("comfort")}</h1>
+        </DekInfo>
         <GenInfo>
-          <p>{t("dek")}</p>
+          <p>֊ {t("bed")}</p>
+          <p>- {t("rope")}</p>
+          <p>֊ {t("pool")}</p>
+          <p>֊ {t("picnic")}</p>
+          <p>֊ {t("cond")}</p>
+          <p>֊ {t("bath")}</p>
+          <p>֊ {t("wifi")}</p>
         </GenInfo>
-        <h1>{t("comfort")}</h1>
-      </DekInfo>
-      <GenInfo>
-        <p>֊ {t("bed")}</p>
-        <p>- {t("rope")}</p>
-        <p>֊ {t("pool")}</p>
-        <p>֊ {t("picnic")}</p>
-        <p>֊ {t("cond")}</p>
-        <p>֊ {t("bath")}</p>
-        <p>֊ {t("wifi")}</p>
-      </GenInfo>
-      <BookBtn>
-        <Button
-          variant="contained"
-          style={{ height: "3rem", "fontWeight": " bold" }}
-        >
-          Check pricing and Book here
-        </Button>
-      </BookBtn>
-    </CardPageWrapper>
+        <BookBtn>
+          <Button
+            variant="contained"
+            style={{ height: "3rem", fontWeight: " bold" }}
+          >
+            Check pricing and Book here
+          </Button>
+          <p>Check-in 14:00</p>
+          <p>Check-out 12:00</p>
+        </BookBtn>
+      </CardPageWrapper>
+      <RoomsCont>
+        <OtherRooms>
+          <h1>Other Rooms</h1>
+        </OtherRooms>
+      </RoomsCont>
+    </>
   );
 };
 

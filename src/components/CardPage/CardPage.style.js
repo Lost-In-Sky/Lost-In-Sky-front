@@ -65,6 +65,25 @@ export const GenInfo = styled.div`
 `;
 
 export const BookBtn = styled.div`
+  display: flex;
+  flex-direction: column;
   width: fit-content;
   align-self: center;
+  @media (max-width:599px){
+        align-self: unset;
+        margin-left:2rem;
+  }
+`;
+
+export const RoomsCont = styled.div`
+  display: flex;
+  width: 100%;
+  border-top: 1px solid #f0f0f0;
+`;
+export const OtherRooms = styled.div`
+display:flex;
+flex-direction:column;
+margin-top:5rem;
+width:100%
+justify-content:center;
 `;

@@ -5,7 +5,7 @@ export default {
   contacts: "Контакты",
   booking: "Бронирование",
   our_rooms: "Наши Комнаты",
-  call: "Звоните",
+  call_us: "Звоните",
   our_contacts: "Наши Контакты",
   village_yenokavan: "село Енокаван.",
   district: "Тавушская област, Армения",
@@ -21,4 +21,5 @@ export default {
   wifi: "Бесплатный вай-фай",
   picnic: "Собственная площадка для пикника",
   rope: "Гамак",
+  follow:"Подписывайтесь"
 };

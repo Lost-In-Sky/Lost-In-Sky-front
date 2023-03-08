@@ -64,7 +64,7 @@ const Navbar = () => {
     >
       <UpperField>
         <p>
-          {t("call")}: +374 91 45 05 81 <a href="tel:+37491450581" />
+          {t("call_us")}: +374 91 45 05 81 <a href="tel:+37491450581" />
         </p>
       </UpperField>
       <StyledToolbar>

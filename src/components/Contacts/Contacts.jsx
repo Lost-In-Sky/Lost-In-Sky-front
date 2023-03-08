@@ -13,7 +13,7 @@ function Contacts() {
 
       <p>{t("call")}: +374 91 45 05 81</p>
 
-      <p className="heading_primary">Follow Us</p>
+      <p className="heading_primary">{t("follow")}</p>
       <div className="icons">
         <a
           href="https://www.facebook.com/profile.php?id=100088963574983"
