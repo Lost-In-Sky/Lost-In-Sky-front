@@ -3,6 +3,7 @@ import HotelCard from "../HotelCard/HotelCard";
 import SliderCard from "../SliderCard/SliderCard";
 import { CardWrapper, MainWrapper } from "./Home.style";
 import { useTranslation } from "react-i18next";
+import { cotages } from "../../mocks/cotagesMock";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -12,9 +13,9 @@ const Home = () => {
       <MainWrapper>
         <h1>{t("our_rooms")}</h1>
         <CardWrapper>
-          <HotelCard />
-          <HotelCard />
-          <HotelCard />
+          {cotages.length > 0
+            ? cotages.map((room) => <HotelCard key={room.id} room={room} />)
+            : "nothing to show"}
         </CardWrapper>
       </MainWrapper>
     </div>

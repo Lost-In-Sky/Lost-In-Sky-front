@@ -9,5 +9,7 @@ export default {
   our_contacts: "Наши Контакты",
   village_yenokavan: "село Енокаван.",
   district: "Тавушская област, Армения",
-  call: "Телефон"
+  call: "Телефон",
+  cost: "AMD",
+  book: "Бронировать",
 };

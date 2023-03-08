@@ -4,19 +4,20 @@ import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Contact from "./components/Contacts/Contacts";
 import CardPage from "./components/CardPage/CardPage";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import RoomContextProvider from "./Context/RoomsContext";
 
 function App() {
   return (
-    <>
+    <RoomContextProvider>
       <Navbar />
       <Routes>
         <Route path="/contacts" element={<Contact />} />
         <Route path="/" element={<Home />} />
-        <Route path="/room:" element={<CardPage />} />
+        <Route path="/room" element={<CardPage />} />
       </Routes>
       <Footer />
-    </>
+    </RoomContextProvider>
   );
 }
 
