@@ -5,31 +5,41 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import image from "../../assets/LIS-icon1.jpg";
+import image2 from "../../assets/CardPageImg/LISimg1.jpg";
 import { useTranslation } from "react-i18next";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoomContext } from "../../Context/RoomsContext";
 
 export default function HotelCard({ room }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
+  const [coverImage, setCoverImage] = useState(image);
   const navigate = useNavigate();
   const { setRoom } = useContext(RoomContext);
   const isMobile = useMediaQuery(theme.breakpoints.down(390));
+  useEffect(() => {
+    if (room.id == 1) {
+      setCoverImage(image);
+    } else if (room.id == 2) {
+      setCoverImage(image2);
+    }
+  }, [room]);
   return (
     <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          setRoom(room);
+          navigate(`/room/${room.id}`);
+        }}
+      >
         <CardMedia
           component="img"
           height="200"
-          image={image}
+          image={coverImage}
           alt="photo"
-          onClick={() => {
-            setRoom(room);
-            navigate("/room");
-          }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

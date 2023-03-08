@@ -7,6 +7,7 @@ export const cotages = [
     numberOfFloors: "two",
     badrooms: "1",
     cost: 100000,
+    image: "image1",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const cotages = [
     numberOfFloors: "two",
     badrooms: "1",
     cost: 100000,
+    image: "image2",
   },
   {
     id: 3,
@@ -25,5 +27,6 @@ export const cotages = [
     numberOfFloors: "two",
     badrooms: "1",
     cost: 100000,
+    image: "image3",
   },
 ];

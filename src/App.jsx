@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/contacts" element={<Contact />} />
         <Route path="/" element={<Home />} />
-        <Route path="/room" element={<CardPage />} />
+        <Route path="/room/:id" element={<CardPage />} />
       </Routes>
       <Footer />
     </RoomContextProvider>
