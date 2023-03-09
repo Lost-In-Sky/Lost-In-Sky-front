@@ -1,80 +1,84 @@
 import Calendar from "react-calendar"
-import React, { useEffect, useState, useTransition } from "react"
+import React, { useEffect, useState } from "react"
 import 'react-calendar/dist/Calendar.css';
 import hy from "./hy";
+import { useSearchParams } from "react-router-dom";
+import { CalendarWrapper } from "./Calendar.style";
 
 function CalendarComponent() {
-    // NEED to implement the language query to get the current language and change the calendar language
-
-
+    const [searchParams] = useSearchParams();
+  
     const [dateRange, setDateRange] = useState([]);
+    //new Date(2023, 2, 15), new Date(2023, 2, 19)
+    const [locale, setLocale] = useState(searchParams.get('lang') || "hy");
+    const [checkInDate, setCheckInDate] = useState();
+    const [checkOutDate, setCheckOutDate] = useState();
+
+    useEffect(() => {
+      setLocale(searchParams.get('lang') || "hy");
+    }, [searchParams.get('lang')])
 
     const disabledDates = [
-        new Date(2023, 2, 7),
+        new Date(2023, 2, 8),
         new Date(2023, 2, 10),
         new Date(2023, 2, 11),
         new Date(2023, 2, 12)
     ];
 
-    const handleRangeSelection = (dateRange) => {
-        setDateRange(dateRange);
+    const handleCheckInDate = (date) => {
+      setCheckInDate(date);
     }
 
+    const handleCheckOutDate = (date) => {
+      setCheckOutDate(date);
+    }
+
+    useEffect(() => {
+      if(checkInDate && checkOutDate){
+        setDateRange([checkInDate, checkOutDate])
+      }
+    },[checkInDate,checkOutDate])
     const isDateDisabled = (date) => {
         return disabledDates.some(disabledDate =>
             disabledDate.getTime() === date.date.getTime()
         );
     }
-
+    console.log(dateRange);
     return (
-        <div>
+        <CalendarWrapper>
+          {dateRange && <p>asd</p>}
             <Calendar
-                selectRange={true}
-                onChange={handleRangeSelection}
+                // value={dateRange ? dateRange : ''}
+                onChange={handleCheckInDate}
                 tileDisabled={isDateDisabled}
-                locale={hy.locale}
-                formatShortWeekday={(locale, value) =>
-                    hy.weekdaysShort[value.getDay()]
+                locale={locale}
+                formatShortWeekday={locale === 'hy' ? (locale, value) =>
+                    hy.weekdaysShort[value.getDay()] : undefined
                   }
-                formatMonthYear={(locale, value) =>
-                    `${hy.months[value.getMonth()]} ${value.getFullYear()}`
+                formatMonthYear={locale === 'hy' ? (locale, value) =>
+                    `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
                   }
-                formatWeekday={(locale, value) =>
-                    hy.weekdaysLong[value.getDay()]
+                formatWeekday={locale === 'hy' ? (locale, value) =>
+                    hy.weekdaysLong[value.getDay()] : undefined
                   }
             />
-        </div>
+            <Calendar
+                // value={dateRange}
+                onChange={handleCheckOutDate}
+                tileDisabled={isDateDisabled}
+                locale={locale}
+                formatShortWeekday={locale === 'hy' ? (locale, value) =>
+                    hy.weekdaysShort[value.getDay()] : undefined
+                  }
+                formatMonthYear={locale === 'hy' ? (locale, value) =>
+                    `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
+                  }
+                formatWeekday={locale === 'hy' ? (locale, value) =>
+                    hy.weekdaysLong[value.getDay()] : undefined
+                  }
+            />
+        </CalendarWrapper>
     )
 }
 
 export default CalendarComponent
-
-//hy.js file
-/* export default {
-    locale: 'hy',
-    months: [
-      'Հունվար',
-      'Փետրվար',
-      'Մարտ',
-      'Ապրիլ',
-      'Մայիս',
-      'Հունիս',
-      'Հուլիս',
-      'Օգոստոս',
-      'Սեպտեմբեր',
-      'Հոկտեմբեր',
-      'Նոյեմբեր',
-      'Դեկտեմբեր'
-    ],
-    weekdaysShort: ['Կիր', 'Երկ', 'Երք', 'Չոր', 'Հնգ', 'Ուրբ', 'Շաբ'],
-    weekdaysLong: [
-      'Կիրակի',
-      'Երկուշաբթի',
-      'Երեքշաբթի',
-      'Չորեքշաբթի',
-      'Հինգշաբթի',
-      'Ուրբաթ',
-      'Շաբաթ'
-    ],
-}
-*/
