@@ -21,5 +21,7 @@ export default {
   wifi:"անվճար WIFI",
   picnic:"բացօդյա հարթակ",
   rope:"գամակ",
-  follow:"Հետևեք Մեզ"
+  follow:"Հետևեք Մեզ",
+  check_in: "Ժամանման օր",
+  check_out: "Մեկնման օր"
 };

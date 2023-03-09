@@ -5,7 +5,7 @@ import logo from "../../assets/logo.png";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../../helpers/LanguageSelector";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   StyledAppBar,
   StyledToolbar,
@@ -26,10 +26,12 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg" ));
   const [showMenu, setShowMenu] = useState(false);
   const [btnColor, setBtnColor] = useState(null);
-  const [lang, setLang] = useState(localStorage.getItem("lang") || "am");
+  const [searchParams] = useSearchParams();
+  const [lang, setLang] = useState(searchParams.get('lang') || "am");
   const navigate = useNavigate()
 
   const { t, i18n } = useTranslation();
+  const pathname = window.location.pathname;
 
   useEffect(() => {
     if (showMenu) {
@@ -56,7 +58,17 @@ const Navbar = () => {
       setLang(language);
     },
     []
-  );return (
+  );
+
+  useEffect(() => {
+    if(lang === 'am'){
+      navigate(pathname);
+    }
+    else
+      navigate({ pathname, search: `lang=${lang}` });
+  },[lang])
+
+  return (
     <StyledAppBar
       position="static"
       style={{ color: "black", background: "white" }}
@@ -84,7 +96,7 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(1);
-                navigate("/")
+                navigate({ pathname: "/", search: `lang=${lang}` });
               }}
             >
               {t("home")}
@@ -96,7 +108,7 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(2);
-                navigate("/gallery")
+                navigate({ pathname: "/gallery", search: `lang=${lang}` });
               }}
             >
               {t("gallery")}
@@ -108,7 +120,7 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(3);
-                navigate("/booking")
+                navigate({ pathname: "/booking", search: `lang=${lang}` });
               }}
             >
               {t("booking")}
@@ -120,7 +132,7 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(4);
-                navigate("/contacts")
+                navigate({ pathname: "/contacts", search: `lang=${lang}` });
               }}
             >
               {t("contacts")}
@@ -132,7 +144,7 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(5);
-                navigate("/about")
+                navigate({ pathname: "/about", search: `lang=${lang}` });
               }}
             >
               {t("about")}

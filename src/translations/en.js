@@ -12,5 +12,7 @@ export default {
   call: "call",
   cost: "AMD",
   follow:"Follow",
-  book:"Book now"
+  book:"Book now",
+  check_in: "Check in",
+  check_out: "Check out"
 };
