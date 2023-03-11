@@ -1,84 +1,107 @@
 import Calendar from "react-calendar"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import 'react-calendar/dist/Calendar.css';
 import hy from "./hy";
 import { useSearchParams } from "react-router-dom";
-import { CalendarWrapper } from "./Calendar.style";
+import { CalendarWrapper, Wrapper } from "./Calendar.style";
+import PropTypes from 'prop-types'
 
-function CalendarComponent() {
+function CalendarComponent({ dateRange, disabledDates, selecedDate, setSelectedDate, label, placeholderValue }) {
     const [searchParams] = useSearchParams();
-  
-    const [dateRange, setDateRange] = useState([]);
-    //new Date(2023, 2, 15), new Date(2023, 2, 19)
+    const calendarRef = useRef(null);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [locale, setLocale] = useState(searchParams.get('lang') || "hy");
-    const [checkInDate, setCheckInDate] = useState();
-    const [checkOutDate, setCheckOutDate] = useState();
 
     useEffect(() => {
-      setLocale(searchParams.get('lang') || "hy");
+        setLocale(searchParams.get('lang') || "hy");
     }, [searchParams.get('lang')])
 
-    const disabledDates = [
-        new Date(2023, 2, 8),
-        new Date(2023, 2, 10),
-        new Date(2023, 2, 11),
-        new Date(2023, 2, 12)
-    ];
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
 
-    const handleCheckInDate = (date) => {
-      setCheckInDate(date);
+        if(label === 'Check In:')
+            setIsCalendarOpen(false);
     }
 
-    const handleCheckOutDate = (date) => {
-      setCheckOutDate(date);
-    }
-
-    useEffect(() => {
-      if(checkInDate && checkOutDate){
-        setDateRange([checkInDate, checkOutDate])
-      }
-    },[checkInDate,checkOutDate])
     const isDateDisabled = (date) => {
         return disabledDates.some(disabledDate =>
             disabledDate.getTime() === date.date.getTime()
         );
     }
-    console.log(dateRange);
+
+    const openCalendar = () => {
+        setIsCalendarOpen(true);
+    }
+
+    const closeCalendar = () => {
+        setIsCalendarOpen(false);
+      };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+            closeCalendar();
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
-        <CalendarWrapper>
-          {dateRange && <p>asd</p>}
-            <Calendar
-                // value={dateRange ? dateRange : ''}
-                onChange={handleCheckInDate}
-                tileDisabled={isDateDisabled}
-                locale={locale}
-                formatShortWeekday={locale === 'hy' ? (locale, value) =>
-                    hy.weekdaysShort[value.getDay()] : undefined
-                  }
-                formatMonthYear={locale === 'hy' ? (locale, value) =>
-                    `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
-                  }
-                formatWeekday={locale === 'hy' ? (locale, value) =>
-                    hy.weekdaysLong[value.getDay()] : undefined
-                  }
-            />
-            <Calendar
-                // value={dateRange}
-                onChange={handleCheckOutDate}
-                tileDisabled={isDateDisabled}
-                locale={locale}
-                formatShortWeekday={locale === 'hy' ? (locale, value) =>
-                    hy.weekdaysShort[value.getDay()] : undefined
-                  }
-                formatMonthYear={locale === 'hy' ? (locale, value) =>
-                    `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
-                  }
-                formatWeekday={locale === 'hy' ? (locale, value) =>
-                    hy.weekdaysLong[value.getDay()] : undefined
-                  }
-            />
-        </CalendarWrapper>
+        <Wrapper>
+            <label>{label}</label>
+            <input 
+                type="text" 
+                id="date_in" 
+                required="" 
+                name="date_in" 
+                size="35" 
+                value={placeholderValue}
+                onClick={openCalendar}
+                />
+            <CalendarWrapper ref={calendarRef}>
+                {isCalendarOpen && 
+                <Calendar
+                    value={dateRange}
+                    onChange={handleDateSelect}
+                    tileDisabled={isDateDisabled}
+                    locale={locale}
+                    formatShortWeekday={locale === 'hy' ? (locale, value) =>
+                        hy.weekdaysShort[value.getDay()] : undefined
+                    }
+                    formatMonthYear={locale === 'hy' ? (locale, value) =>
+                        `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
+                    }
+                    formatWeekday={locale === 'hy' ? (locale, value) =>
+                        hy.weekdaysLong[value.getDay()] : undefined
+                    }
+                />
+            }
+            </CalendarWrapper>
+        </Wrapper>
+
     )
 }
+
+CalendarComponent.defaultProps = {
+    label: null,
+    dateRange: [],
+    disabledDates: [],
+    selecedDate: null,
+    setSelectedDate: () => {},
+    placeholderValue: ''
+};
+  
+CalendarComponent.propTypes = {
+    placeholderValue: PropTypes.string,
+    label: PropTypes.string,
+    dateRange: PropTypes.arrayOf(PropTypes.any),
+    disabledDates: PropTypes.arrayOf(PropTypes.string),
+    selecedDate: PropTypes.string,
+    setSelectedDate: PropTypes.func
+};
 
 export default CalendarComponent
