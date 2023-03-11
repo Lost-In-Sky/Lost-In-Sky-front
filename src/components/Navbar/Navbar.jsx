@@ -42,8 +42,6 @@ const Navbar = () => {
   }, [showMenu, lang]);
 
   useEffect(() => {
-    console.log(lang, 'lang');
-    console.log(pathname)
     if (lang === 'am') {
       navigate(pathname);
     }
