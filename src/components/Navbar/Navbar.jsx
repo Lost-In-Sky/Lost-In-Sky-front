@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import logo from "../../assets/logo.png";
@@ -22,7 +23,7 @@ import { useMediaQuery } from "@mui/material";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg" ));
   const [showMenu, setShowMenu] = useState(false);
   const [btnColor, setBtnColor] = useState(null);
   const [lang, setLang] = useState(localStorage.getItem("lang") || "am");
@@ -55,9 +56,7 @@ const Navbar = () => {
       setLang(language);
     },
     []
-  );
-
-  return (
+  );return (
     <StyledAppBar
       position="static"
       style={{ color: "black", background: "white" }}
@@ -68,7 +67,7 @@ const Navbar = () => {
         </p>
       </UpperField>
       <StyledToolbar>
-        {isMobile && (
+        {isMobile  && (
           <MenuButton aria-label="menu" onClick={handleMenuButtonClick}>
             {showMenu ? <CloseIcon style={{ color: "white" }} /> : <MenuIcon />}
           </MenuButton>
@@ -149,3 +148,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

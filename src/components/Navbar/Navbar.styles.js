@@ -6,6 +6,7 @@ export const StyledAppBar = styled(AppBar)`
   color: #000000;
   height: 8rem;
   justify-content: center;
+  display: flex;
 `;
 
 export const StyledToolbar = styled(Toolbar)`
@@ -17,8 +18,12 @@ export const StyledToolbar = styled(Toolbar)`
 export const StyledNav = styled.nav`
   display: flex;
   align-items: center;
+  width: auto;
+  @media (max-width: 1200px) {
+    margin: 0;
+  }
 
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +43,7 @@ export const StyledNav = styled.nav`
 export const StyledLink = styled.div`
   font-size: 20px;
   height: 2rem;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: ${(props) => (props.btnColor ? "#118acb" : "black")};
   text-decoration: none;
   margin: 0 20px;
@@ -63,8 +68,7 @@ export const StyledLink = styled.div`
   &:hover {
     text-decoration: none;
   }
-
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     display: block;
     color: white;
     margin: 20px;
@@ -74,19 +78,16 @@ export const StyledLink = styled.div`
 export const MenuButton = styled(IconButton)`
   display: none;
   z-index: 110;
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     display: block;
   }
 `;
 export const ItemsWrapper = styled.div`
   display: flex;
 
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     margin-top: 8rem;
     flex-direction: column;
-  }
-  @media (min-width: 850px) {
-    margin-right: 10rem;
   }
 `;
 
@@ -96,7 +97,7 @@ export const LogoWrapper = styled.div`
     width: 13rem;
     height: 13rem;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     align-self: center;
   }
 `;
@@ -115,7 +116,7 @@ export const UpperField = styled.div`
   > p {
     cursor: pointer;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     justify-content: center;
   }
 `;
@@ -128,7 +129,7 @@ export const LngCont = styled.div`
   > p {
     margin: unset;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 1200px) {
     margin-left: 10px;
   }
 `;
