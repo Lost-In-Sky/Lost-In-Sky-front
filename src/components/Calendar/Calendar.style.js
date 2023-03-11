@@ -42,7 +42,7 @@ export const Wrapper = styled.div`
     }
     .react-calendar {
         position: absolute;
-        top: 71px;
+        z-index: 1;
         width: 330px;
     }
 `;
@@ -50,4 +50,6 @@ export const Wrapper = styled.div`
 export const CalendarComponentWrapper = styled.div`
     display: flex;
     gap: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
 `;
