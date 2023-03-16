@@ -10,8 +10,6 @@ export const MainWrapperCardPage = styled.div`
 export const CardPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 20rem;
-  margin-right: 40rem;
   color: #777;
   @media (max-width: 1200px) {
     margin: 0;
@@ -75,7 +73,6 @@ export const BookBtn = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
-  margin-left: 18rem;
   align-self: center;
   align-items: center;
   @media (max-width: 1200px) {
@@ -94,6 +91,7 @@ export const RoomsCont = styled.div`
 export const OtherRooms = styled.div`
   display: flex;
   width: 100%;
+  gap: 1rem;
   align-items: center;
   color: #118acb;
   @media (max-width: 599px) {

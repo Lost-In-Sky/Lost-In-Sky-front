@@ -13,7 +13,7 @@ import {
   GenInfo,
 } from "./CardPage.style";
 import { RoomContext } from "../../Context/RoomsContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import img1 from "../../assets/CardPageImg/LISimg1.jpg";
@@ -23,11 +23,13 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
+import RoomReservCard from "../RoomReservCard/RoomReservCard";
 
 const CardPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const slides = [img1, img2];
+  const [OpenReservRoom, setOpenReservRoom] = useState(false);
   const { room } = useContext(RoomContext);
   return (
     <MainWrapperCardPage>
@@ -56,12 +58,14 @@ const CardPage = () => {
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}
+            onClick={() => setOpenReservRoom((prev) => (prev = !prev))}
           >
             Check pricing and Book here
           </Button>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>
         </BookBtn>
+        <RoomReservCard OpenReservRoom={OpenReservRoom} />
       </CardPageWrapper>
       <RoomsCont>
         <OtherRooms>
@@ -70,7 +74,10 @@ const CardPage = () => {
         </OtherRooms>
         <BottomCardWrapper>
           {cotages.length > 0
-            ? cotages.map((room) => <HotelCard key={room.id} room={room} />)
+            ? cotages.map(
+                (room) =>
+                  room.id != id && <HotelCard key={room.id} room={room} />
+              )
             : "nothing to show"}
         </BottomCardWrapper>
       </RoomsCont>
@@ -79,5 +86,3 @@ const CardPage = () => {
 };
 
 export default CardPage;
-
-

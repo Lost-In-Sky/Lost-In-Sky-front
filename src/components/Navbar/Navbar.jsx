@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import logo from "../../assets/logo.png";
@@ -20,15 +19,16 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
+import { makeAxiosCall } from "../../helpers/api";
 
 const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [showMenu, setShowMenu] = useState(false);
   const [btnColor, setBtnColor] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [lang, setLang] = useState(searchParams.get('lang') || "am");
+  const [lang, setLang] = useState(searchParams.get("lang") || "am");
   const { t, i18n } = useTranslation();
   const pathname = window.location.pathname;
 
@@ -42,12 +42,10 @@ const Navbar = () => {
   }, [showMenu, lang]);
 
   useEffect(() => {
-    if (lang === 'am') {
+    if (lang === "am") {
       navigate(pathname);
-    }
-    else
-      navigate({ pathname, search: `lang=${lang}` });
-  }, [lang])
+    } else navigate({ pathname, search: `lang=${lang}` });
+  }, [lang]);
 
   const handleMenuButtonClick = () => {
     setShowMenu(!showMenu);
@@ -92,9 +90,10 @@ const Navbar = () => {
               showMenu={showMenu}
               btnColor={btnColor === 1}
               onClick={() => {
-                closeMenu();
-                HeandleBtnCollor(1);
-                navigate({ pathname: "/", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                makeAxiosCall();
+                // closeMenu();
+                // HeandleBtnCollor(1);
+                // navigate({ pathname: "/", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
               }}
             >
               {t("home")}
@@ -106,7 +105,10 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(2);
-                navigate({ pathname: "/gallery", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                navigate({
+                  pathname: "/gallery",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
               }}
             >
               {t("gallery")}
@@ -118,7 +120,10 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(3);
-                navigate({ pathname: "/booking", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                navigate({
+                  pathname: "/booking",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
               }}
             >
               {t("booking")}
@@ -130,7 +135,10 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(4);
-                navigate({ pathname: "/contacts", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                navigate({
+                  pathname: "/contacts",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
               }}
             >
               {t("contacts")}
@@ -142,7 +150,10 @@ const Navbar = () => {
               onClick={() => {
                 closeMenu();
                 HeandleBtnCollor(5);
-                navigate({ pathname: "/about", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                navigate({
+                  pathname: "/about",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
               }}
             >
               {t("about")}
@@ -158,5 +169,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
