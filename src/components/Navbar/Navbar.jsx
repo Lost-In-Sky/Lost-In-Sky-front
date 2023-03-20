@@ -90,10 +90,12 @@ const Navbar = () => {
               showMenu={showMenu}
               btnColor={btnColor === 1}
               onClick={() => {
-                makeAxiosCall();
-                // closeMenu();
-                // HeandleBtnCollor(1);
-                // navigate({ pathname: "/", search: `${lang !== 'am' ? `lang=${lang}` : ''}` });
+                closeMenu();
+                HeandleBtnCollor(1);
+                navigate({
+                  pathname: "/",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
               }}
             >
               {t("home")}
@@ -142,21 +144,6 @@ const Navbar = () => {
               }}
             >
               {t("contacts")}
-            </StyledLink>
-            <StyledLink
-              href="#"
-              showMenu={showMenu}
-              btnColor={btnColor === 5}
-              onClick={() => {
-                closeMenu();
-                HeandleBtnCollor(5);
-                navigate({
-                  pathname: "/about",
-                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
-                });
-              }}
-            >
-              {t("about")}
             </StyledLink>
             <LngCont>
               <LanguageSelector onLanguageChange={handleLanguageChange} />
