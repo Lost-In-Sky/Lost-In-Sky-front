@@ -23,7 +23,6 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
-import RoomReservCard from "../RoomReservCard/RoomReservCard";
 
 const CardPage = () => {
   const { id } = useParams();
@@ -65,7 +64,6 @@ const CardPage = () => {
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>
         </BookBtn>
-        <RoomReservCard OpenReservRoom={OpenReservRoom} />
       </CardPageWrapper>
       <RoomsCont>
         <OtherRooms>
