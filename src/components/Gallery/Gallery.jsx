@@ -18,7 +18,11 @@ import image16 from "../../assets/GalleryImg/image16.jpeg";
 import image17 from "../../assets/GalleryImg/image17.jpeg";
 import image18 from "../../assets/GalleryImg/image18.jpeg";
 import image19 from "../../assets/GalleryImg/image19.jpeg";
-import { ImagesWrapper, SelectedImageWrapper } from "./Gallery.style";
+import {
+  ImagesWrapper,
+  SelectedImageWrapper,
+  GalleryWrapper,
+} from "./Gallery.style";
 
 function Gallery() {
   const images = [
@@ -57,7 +61,7 @@ function Gallery() {
   }, [selectedImage]);
 
   return (
-    <>
+    <GalleryWrapper>
       <ImagesWrapper>
         {images.map((image, index) => (
           <div key={index} className="gallery-image-wrapper">
@@ -82,7 +86,7 @@ function Gallery() {
           />
         </SelectedImageWrapper>
       )}
-    </>
+    </GalleryWrapper>
   );
 }
 
