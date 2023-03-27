@@ -14,6 +14,7 @@ function CalendarComponent({ dateRange, disabledDates, selecedDate, setSelectedD
 
     useEffect(() => {
         setLocale(searchParams.get('lang') || "hy");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams.get('lang')])
 
     const handleDateSelect = (date) => {
@@ -24,8 +25,9 @@ function CalendarComponent({ dateRange, disabledDates, selecedDate, setSelectedD
     }
 
     const isDateDisabled = (date) => {
-        return disabledDates.some(disabledDate =>
-            disabledDate.getTime() === date.date.getTime()
+        return disabledDates.some(disabledDate => {
+          return disabledDate.getTime() === date.date.getTime()
+        }
         );
     }
 
@@ -60,6 +62,7 @@ function CalendarComponent({ dateRange, disabledDates, selecedDate, setSelectedD
                 name="date_in" 
                 size="35" 
                 value={placeholderValue}
+                readOnly
                 onClick={openCalendar}
                 />
             <CalendarWrapper ref={calendarRef}>
@@ -99,8 +102,8 @@ CalendarComponent.propTypes = {
     placeholderValue: PropTypes.string,
     label: PropTypes.string,
     dateRange: PropTypes.arrayOf(PropTypes.any),
-    disabledDates: PropTypes.arrayOf(PropTypes.string),
-    selecedDate: PropTypes.string,
+    disabledDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+    selecedDate: PropTypes.instanceOf(Date),
     setSelectedDate: PropTypes.func
 };
 
