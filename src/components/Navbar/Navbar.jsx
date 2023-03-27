@@ -81,7 +81,14 @@ const Navbar = () => {
           </MenuButton>
         )}
         <LogoWrapper>
-          <img src={logo} alt="logo" />
+          <img
+            src={logo}
+            alt="logo"
+            onClick={() => {
+              navigate("/");
+              setBtnColor(null);
+            }}
+          />
         </LogoWrapper>
         <StyledNav showMenu={showMenu} isMobile={isMobile}>
           <ItemsWrapper>
