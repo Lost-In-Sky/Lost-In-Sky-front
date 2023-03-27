@@ -50,10 +50,10 @@ export const CalendarComponentWrapper = styled.div`
   gap: 1.5rem;
   margin-bottom: 1rem;
   position: relative;
-  color:green;
+  color: green;
   @media (max-width: 600px) {
     gap: 0;
     flex-direction: column;
-    width:  -webkit-fill-available;
+    width: -webkit-fill-available;
   }
 `;

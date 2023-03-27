@@ -1,6 +1,6 @@
 export const cotages = [
   {
-    id: 1,
+    id: "dadasdasday78sdya7ds78a6s78d6a78s6d78a6s78d6asd76assd",
     name: "Sky",
     capacity: "2",
     space: "35sqm",
