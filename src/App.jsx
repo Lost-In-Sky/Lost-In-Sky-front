@@ -18,7 +18,6 @@ function App() {
         <Route path="/room/:id" element={<CardPage />} />
         <Route path="/gallery" element={<Gallery />}/>
       </Routes>
-
       <Footer />
     </RoomContextProvider>
   );

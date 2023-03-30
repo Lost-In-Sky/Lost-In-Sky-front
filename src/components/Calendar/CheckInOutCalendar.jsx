@@ -149,4 +149,4 @@ function CheckInOutCalendar() {
   )
 }
 
-export default CheckInOutCalendar
+export default CheckInOutCalendar;

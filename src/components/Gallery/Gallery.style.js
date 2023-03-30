@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+export const GalleryWrapper = styled.div`
+margin:2rem;
+`
 export const ImagesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
