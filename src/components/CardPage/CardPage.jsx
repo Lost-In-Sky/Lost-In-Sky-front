@@ -22,7 +22,8 @@ import img2 from "../../assets/CardPageImg/LISimg2.jpg";
 import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
-import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
+import CalendarComponent from "../Calendar/Calendar";
+import DateRangePickerDemo from "../Calendar/CheckInOutCalendar";
 
 const CardPage = () => {
   const { id } = useParams();
@@ -53,7 +54,8 @@ const CardPage = () => {
           <p>֊ {t("wifi")}</p>
         </GenInfo>
         <BookBtn>
-          <CheckInOutCalendar />
+          <CalendarComponent />
+          <DateRangePickerDemo />
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}

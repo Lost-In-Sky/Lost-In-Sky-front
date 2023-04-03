@@ -1,152 +1,101 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import CalendarComponent from "./Calendar";
-import { CalendarComponentWrapper } from "./Calendar.style";
-function CheckInOutCalendar() {
-  const [checkInDate, setCheckInDate] = useState();
-  const [checkOutDate, setCheckOutDate] = useState();
-  const [dateRange, setDateRange] = useState([]);
-  const [disabledDatesCheckIn, setDisabledDatesCheckIn] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [disabledDatesCheckOut, setDisabledDatesCheckOut] = useState();
-  const [checkInValue, setCheckInValue] = useState();
-  const [checkOutValue, setCheckOutValue] = useState();
-  const { t } = useTranslation();
+import React, { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { format } from 'date-fns';
+import { CalendarComponentWrapper } from './Calendar.style';
+
+const DateRangePickerDemo = ({ onSubmit }) => {
+  const [selectedRange, setSelectedRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [disabledDates, setDisabledDates] = useState([]);
 
   useEffect(() => {
-    getDisabledDays();
+    async function getDisabledDates() {
+      // Backy chi ashxatum Dzel!!!
+      // const id = pathname.slice(-1);
+      // const data = await getReservationById(id);
+      const data = [
+        {
+          checkIn: 'Sun Apr 02 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
+          checkOut: 'Sun Apr 06 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
+        },
+        {
+          checkIn: 'Sun Apr 10 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
+          checkOut: 'Sun Apr 13 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
+        }
+      ]
+      const days = [];
+
+      data.forEach(({ checkIn, checkOut }) => {
+        const startDate = new Date(checkIn);
+        const endDate = new Date(checkOut);
+        endDate.setDate(endDate.getDate() - 1);
+
+        const daysDiff = (endDate - startDate) / (1000 * 60 * 60 * 24); // Number of days between the two dates
+      
+        for (let i = 0; i <= daysDiff; i++) {
+          const currentDate = new Date(startDate);
+          currentDate.setDate(currentDate.getDate() + i);
+          days.push(currentDate); // Push the date to the `days` array
+        }
+      });
+      setDisabledDates(days);
+      // const checkIn = new Date();
+      // checkIn.setHours(0, 0, 0, 0);
+      // const checkOut = new Date(checkIn);
+      // checkOut.setDate(checkOut.getDate() + 1);
+      // setDateRange([checkIn, checkOut]);
+      // console.log(days,11111111111);
+
+    }
+
+    getDisabledDates();
+  }, [])
+  const isDateDisabled = (date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    setCheckInDate(today);
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    setCheckOutDate(tomorrow);
-    setDateRange([today, tomorrow]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if (checkInDate && checkOutDate && (checkInDate.getTime() < checkOutDate.getTime())) {
-      setDateRange([new Date(checkInDate), new Date(checkOutDate)])
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkInDate, checkOutDate])
-
-  useEffect(() => {
-    const formattedDay = getFormateddDate(checkInDate);
-    setCheckInValue(formattedDay);
-
-    if (checkInDate && checkOutDate && checkInDate.getTime() >= checkOutDate.getTime()) {
-      let day = new Date(checkInDate);
-      let day2 = new Date();
-      day2.setDate(day.getDate() + 1)
-      setCheckOutDate(day2)
+  
+    // Check if date is before today
+    if (date.date < today) {
+      return true;
     }
 
-    //if checkIn date changes, change the disabled days in checkoutCalendar
-    setCheckOutCalendarDisabledDates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkInDate])
-
-  useEffect(() => {
-    setCheckOutValue(getFormateddDate(checkOutDate));
-    if (checkInDate && checkOutDate && checkInDate.getTime() >= checkOutDate.getTime()) {
-      let day = new Date(checkOutDate);
-      let day2 = new Date();
-      day2.setDate(day.getDate() - 1)
-      setCheckInDate(day2)
+    return disabledDates.some(disabledDate => {
+      return disabledDate.getTime() === date.date.getTime()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkOutDate])
-
-  const getFormateddDate = (date1) => {
-    const date = new Date(date1);
-    const yyyy = date.getFullYear();
-    let mm = date.getMonth() + 1; // Months start at 0!
-    let dd = date.getDate();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    const formatteddate = dd + '-' + mm + '-' + yyyy;
-    return formatteddate;
-  };
-
-  // const disableThirtyOneDaysAgo = () => {
-  //   const today = new Date();
-  //   const thirtyOneDaysAgo = new Date();
-  //   thirtyOneDaysAgo.setDate(today.getDate() - 31);
-  //   const disabledDatesArray = [];
-  //   for (let i = 0; i < 31; i++) {
-  //     const date = new Date(thirtyOneDaysAgo);
-  //     date.setDate(thirtyOneDaysAgo.getDate() + i);
-  //     const formatedDay = getFormateddDate(date);
-  //     disabledDatesArray.push(new Date(+formatedDay.split("-")[2], formatedDay.split("-")[1] - 1, +formatedDay.split("-")[0]));
-  //   }
-  //   setDisabledDatesCheckIn([...disabledDatesCheckIn, ...disabledDatesArray]);
-  //   setDisabledDatesCheckOut([...disabledDatesCheckIn, ...disabledDatesArray]);
-
-  // }
-
-  const setCheckOutCalendarDisabledDates = () => {
-    if(disabledDatesCheckIn && checkInDate){
-      const firstDayDisabledAfterCheckIn = disabledDatesCheckIn.find((e) => e.getTime() > checkInDate);
-      const disabledDatesArray = []
-      for (let i = 0; i < 31; i++) {
-        const date = new Date(firstDayDisabledAfterCheckIn);
-        date.setDate(firstDayDisabledAfterCheckIn.getDate() + i);
-        const formatedDay = getFormateddDate(date);
-        disabledDatesArray.push(new Date(+formatedDay.split("-")[2], formatedDay.split("-")[1] - 1, +formatedDay.split("-")[0]));
+    );
+  }
+  const handleDateClick = (date) => {
+    if (selectedRange.startDate && !selectedRange.endDate) {
+      if (date >= selectedRange.startDate) {
+        const range = { ...selectedRange, endDate: date };
+        if (disabledDates.some(d => d >= range.startDate && d <= range.endDate)) {
+          // Range includes disabled dates, do not update state
+          return;
+        }
+        setSelectedRange(range);
+        console.log(range);
+      } else {
+        setSelectedRange({ startDate: date, endDate: null });
       }
-      setDisabledDatesCheckOut([...disabledDatesCheckOut, ...disabledDatesArray])
+    } else {
+      setSelectedRange({ startDate: date, endDate: null });
     }
-  }
+  };
+  
 
-  const getDisabledDays = () => {
-    // implement http request to get the disable days !!!!IMportant to be sorted and started from todays day, dont send the reservations before
-
-    const days = [
-      new Date(2023, 2, 29),
-      new Date(2023, 2, 30),
-      new Date(2023, 3, 2),
-    ]
-
-    const today = new Date();
-    const thirtyOneDaysAgo = new Date();
-    thirtyOneDaysAgo.setDate(today.getDate() - 31);
-    const disabledDatesArray = [];
-    for (let i = 0; i < 31; i++) {
-      const date = new Date(thirtyOneDaysAgo);
-      date.setDate(thirtyOneDaysAgo.getDate() + i);
-      const formatedDay = getFormateddDate(date);
-      disabledDatesArray.push(new Date(+formatedDay.split("-")[2], formatedDay.split("-")[1] - 1, +formatedDay.split("-")[0]));
-    }
-    setDisabledDatesCheckIn([...disabledDatesArray, ...days]);
-    setDisabledDatesCheckOut([...disabledDatesArray, ...days]);
-  }
 
   return (
     <CalendarComponentWrapper>
-      <CalendarComponent
-        label={t('check_in')}
-        dateRange={dateRange}
-        disabledDates={disabledDatesCheckIn}
-        selecedDate={checkInDate}
-        setSelectedDate={setCheckInDate}
-        placeholderValue={checkInValue}
-      />
-      <CalendarComponent
-        label={t('check_out')}
-        dateRange={dateRange}
-        disabledDates={disabledDatesCheckOut}
-        selecedDate={checkOutDate}
-        setSelectedDate={setCheckOutDate}
-        placeholderValue={checkOutValue}
+      <Calendar
+        value={[selectedRange.startDate, selectedRange.endDate]}
+        onClickDay={handleDateClick}
+        tileDisabled={isDateDisabled}
       />
     </CalendarComponentWrapper>
-  )
-}
+  );
+};
 
-export default CheckInOutCalendar;
+export default DateRangePickerDemo;
