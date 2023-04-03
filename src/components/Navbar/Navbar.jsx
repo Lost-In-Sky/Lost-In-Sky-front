@@ -145,6 +145,7 @@ const Navbar = () => {
             >
               {t("contacts")}
             </StyledLink>
+            <button onClick={makeAxiosCall}>SETULIKKKKKKKKKKKKKKKKKKKKKKKKKKKK</button>
             <LngCont>
               <LanguageSelector onLanguageChange={handleLanguageChange} />
             </LngCont>
