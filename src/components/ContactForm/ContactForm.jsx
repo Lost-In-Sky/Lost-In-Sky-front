@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { RoomContext } from "../../Context/RoomsContext";
 import {
   TextField,
   Checkbox,
@@ -6,8 +7,11 @@ import {
   Button,
 } from "@mui/material";
 import { Container, FormWrapper, SectionWrapper, TextFieldStyles } from "./ContactForm.style";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const ContactForm = () => {
+  const { setShowModal,showModal} = useContext(RoomContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -42,6 +46,7 @@ const ContactForm = () => {
   return (
     <Container>
       <FormWrapper onSubmit={handleSubmit}>
+        <CloseIcon onClick={() =>setShowModal(false)} />
         <SectionWrapper>
           Contact:
         </SectionWrapper>

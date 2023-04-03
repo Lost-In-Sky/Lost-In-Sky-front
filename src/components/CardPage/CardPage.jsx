@@ -31,8 +31,7 @@ const CardPage = () => {
   const { t } = useTranslation();
   const slides = [img1, img2];
   const [openReservRoom, setOpenReservRoom] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const { room } = useContext(RoomContext);
+  const { room ,setShowModal,showModal} = useContext(RoomContext);
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
