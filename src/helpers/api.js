@@ -1,18 +1,18 @@
 import axios from "axios";
 
-const url = "http://backend:2000/create/user";
+const api = async (method, endpoint, data) => {
+  try {
+    return await axios({
+      method,
+      url: "http://localhost:2000/api/" + endpoint,
+      data: { ...data },
+      headers: {
+        type: "aplication/json",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const makeAxiosCall = (reservations)=>{
-
-    axios({
-        method: 'post',
-        url,
-        data: {
-          firstName: 'Finn',
-          lastName: 'Williams',
-          email:"bgo@bgo.bog",
-          password:"pass",
-
-        }
-      });
-}
+export default api;

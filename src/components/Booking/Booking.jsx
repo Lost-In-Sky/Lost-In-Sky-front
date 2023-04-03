@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   BookingWrapper,
   ContentWrapper,
@@ -6,19 +6,23 @@ import {
   TextContent,
   CalendarBook,
 } from "./Booking.style";
+import { RoomContext } from "../../Context/RoomsContext";
 import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 const Booking = () => {
-  const [age, setAge] = React.useState("");
+  const { cottages } = useContext(RoomContext);
+  const [age, setAge] = useState(""); 
 
   const handleChange = (event) => {
     setAge(event.target.value);
     console.log(age);
   };
+
   return (
     <BookingWrapper>
       <ContentWrapper>
@@ -48,34 +52,21 @@ const Booking = () => {
                 label="Cottage"
                 onChange={handleChange}
               >
-                <MenuItem
-                  value={10}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
-                >
-                  Setss
-                </MenuItem>
-                <MenuItem
-                  value={20}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
-                >
-                  Twenty
-                </MenuItem>
-                <MenuItem
-                  value={30}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
-                >
-                  Thirty
-                </MenuItem>
+                {cottages.map((cottage) => (
+                  <MenuItem
+                    key={cottage.id}
+                    value={cottage.id}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                    }}
+                  >
+                    {cottage.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
-            <CheckInOutCalendar />
+          <CheckInOutCalendar />
         </TextContent>
       </ContentWrapper>
     </BookingWrapper>
