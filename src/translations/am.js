@@ -23,5 +23,6 @@ export default {
   rope:"գամակ",
   follow:"Հետևեք Մեզ",
   check_in: "Ժամանման օր",
-  check_out: "Մեկնման օր"
+  check_out: "Մեկնման օր",
+  services:"Ծառայություններ"
 };

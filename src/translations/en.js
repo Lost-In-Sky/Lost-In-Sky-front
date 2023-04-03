@@ -14,5 +14,6 @@ export default {
   follow:"Follow",
   book:"Book now",
   check_in: "Check in",
-  check_out: "Check out"
+  check_out: "Check out",
+  services:"services"
 };

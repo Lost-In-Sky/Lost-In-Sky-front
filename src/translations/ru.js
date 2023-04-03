@@ -23,5 +23,6 @@ export default {
   rope: "Гамак",
   follow:"Подписывайтесь",
   check_in: "Дата заезда",
-  check_out: "Дата отъезда"
+  check_out: "Дата отъезда",
+  services:"услуги"
 };

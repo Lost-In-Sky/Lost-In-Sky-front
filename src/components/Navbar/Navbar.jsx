@@ -20,6 +20,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
 import { makeAxiosCall } from "../../helpers/api";
+import Services from "../Services/Services";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -130,6 +131,21 @@ const Navbar = () => {
                 closeMenu();
                 HeandleBtnCollor(3);
                 navigate({
+                  pathname: "/services",
+                  search: `${lang !== "am" ? `lang=${lang}` : ""}`,
+                });
+              }}
+            >
+              {t("services")}
+            </StyledLink>
+            <StyledLink
+              href="#"
+              showMenu={showMenu}
+              btnColor={btnColor === 4}
+              onClick={() => {
+                closeMenu();
+                HeandleBtnCollor(4);
+                navigate({
                   pathname: "/booking",
                   search: `${lang !== "am" ? `lang=${lang}` : ""}`,
                 });
@@ -140,10 +156,10 @@ const Navbar = () => {
             <StyledLink
               href="#"
               showMenu={showMenu}
-              btnColor={btnColor === 4}
+              btnColor={btnColor === 5}
               onClick={() => {
                 closeMenu();
-                HeandleBtnCollor(4);
+                HeandleBtnCollor(5);
                 navigate({
                   pathname: "/contacts",
                   search: `${lang !== "am" ? `lang=${lang}` : ""}`,

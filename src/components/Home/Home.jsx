@@ -12,19 +12,21 @@ import Slide5 from "../../assets/slider-images/slide-5.jpg";
 import api from "../../helpers/api";
 
 const Home = () => {
-  const { setCottages, cottages } = useContext(RoomContext);
-  
+  const { setCottages, cottages, setService } =
+    useContext(RoomContext);
+
   useEffect(() => {
     (async () => {
       const { data } = await api("get", "cottage");
+      const { data: serviceData } = await api("get", "service");
       setCottages(data);
+      setService(serviceData);
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const images = [Slide1, Slide2, Slide3, Slide4, Slide5];
   const { t } = useTranslation();
-  console.log(cottages);
   return (
     <div>
       <SliderCard images={images} />
