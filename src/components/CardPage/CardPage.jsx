@@ -23,12 +23,15 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
+import { Modal } from "@mui/material";
+import ContactForm from "../ContactForm/ContactForm";
 
 const CardPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const slides = [img1, img2];
-  const [OpenReservRoom, setOpenReservRoom] = useState(false);
+  const [openReservRoom, setOpenReservRoom] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { room } = useContext(RoomContext);
   return (
     <MainWrapperCardPage>
@@ -57,10 +60,21 @@ const CardPage = () => {
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}
-            onClick={() => setOpenReservRoom((prev) => (prev = !prev))}
+            onClick={() => {
+              setOpenReservRoom((prev) => (prev = !prev));
+              setShowModal(true);
+            }}
           >
             Check pricing and Book here
           </Button>
+          <Modal
+            open={showModal}
+            onClose={() => setShowModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <ContactForm />
+          </Modal>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>
         </BookBtn>
@@ -73,9 +87,9 @@ const CardPage = () => {
         <BottomCardWrapper>
           {cotages.length > 0
             ? cotages.map(
-                (room) =>
-                  room.id != id && <HotelCard key={room.id} room={room} />
-              )
+              (room) =>
+                room.id != id && <HotelCard key={room.id} room={room} />
+            )
             : "nothing to show"}
         </BottomCardWrapper>
       </RoomsCont>
