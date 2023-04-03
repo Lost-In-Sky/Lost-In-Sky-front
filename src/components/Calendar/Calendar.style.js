@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const CalendarWrapper = styled.div`
   position: absolute;
-  top: 70px;
+  top: 52px;
   display: flex;
+  left: -64px;
 
   .react-calendar__tile--now {
     background-color: transparent;
@@ -18,6 +19,14 @@ export const CalendarWrapper = styled.div`
     background-color: #006edc;
     color: white;
   }
+  .react-calendar__tile--hasActive {
+    background-color: #006edc !important;
+    color: white;
+  }
+  
+  .react-calendar__tile--hasActive:enabled:hover, .react-calendar_tile--hasActive:enabled:focus {
+    background-color: #006edc;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -25,7 +34,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   input {
-    width: 140px;
+    width: 165px;
     font-size: 18px;
     padding: 4px 25px 4px 10px;
     background: url(https://litepms.ru/img/calendar_icon.svg) #fff no-repeat top
@@ -45,17 +54,4 @@ export const Wrapper = styled.div`
     z-index: 1;
     width: 330px;
   }
-`;
-
-export const CalendarComponentWrapper = styled.div`
-
-  .react-calendar__tile--hasActive {
-    background-color: #006edc;
-    color: white;
-  }
-`;
-
-
-export const DateRangeWrapper = styled.div`
-
 `;

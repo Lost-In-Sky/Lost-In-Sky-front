@@ -23,7 +23,7 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CalendarComponent from "../Calendar/Calendar";
-import DateRangePickerDemo from "../Calendar/CheckInOutCalendar";
+import { CalendarContext } from "../../Context/CalendarContext";
 
 const CardPage = () => {
   const { id } = useParams();
@@ -31,6 +31,7 @@ const CardPage = () => {
   const slides = [img1, img2];
   const [OpenReservRoom, setOpenReservRoom] = useState(false);
   const { room } = useContext(RoomContext);
+  const { selectedDates } = useContext(CalendarContext)
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
@@ -55,7 +56,9 @@ const CardPage = () => {
         </GenInfo>
         <BookBtn>
           <CalendarComponent />
-          <DateRangePickerDemo />
+          <button onClick={() => {
+            console.log(selectedDates, 'SElectedDates')
+          }}>CALENDAR DATA</button>
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}

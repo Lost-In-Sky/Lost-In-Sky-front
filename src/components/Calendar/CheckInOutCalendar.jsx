@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import { Alert } from '@mui/material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { format } from 'date-fns';
-import { CalendarComponentWrapper } from './Calendar.style';
+import { useSearchParams } from 'react-router-dom';
+import { CalendarContext } from '../../Context/CalendarContext';
+import { CalendarWrapper, Wrapper } from './Calendar.style';
+import hy from "./hy";
 
-const DateRangePickerDemo = ({ onSubmit }) => {
-  const [selectedRange, setSelectedRange] = useState({
-    startDate: null,
-    endDate: null,
-  });
+const CalendarComponent = () => {
   const [disabledDates, setDisabledDates] = useState([]);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const calendarRef = useRef(null);
+  const [searchParams] = useSearchParams();
+  const [locale, setLocale] = useState(searchParams.get('lang') || "hy");
+  const [showError, setShowError] = useState(false);
+  const { setSelectedDates, selectedDates } = useContext(CalendarContext);
+
+  useEffect(() => {
+    setLocale(searchParams.get('lang') || "hy");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.get('lang')])
 
   useEffect(() => {
     async function getDisabledDates() {
@@ -18,14 +28,15 @@ const DateRangePickerDemo = ({ onSubmit }) => {
       // const data = await getReservationById(id);
       const data = [
         {
-          checkIn: 'Sun Apr 02 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
-          checkOut: 'Sun Apr 06 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
+          checkIn: 'Sun Apr 04 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
+          checkOut: 'Sun Apr 07 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
         },
         {
           checkIn: 'Sun Apr 10 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
           checkOut: 'Sun Apr 13 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
         }
-      ]
+      ];
+
       const days = [];
 
       data.forEach(({ checkIn, checkOut }) => {
@@ -34,7 +45,7 @@ const DateRangePickerDemo = ({ onSubmit }) => {
         endDate.setDate(endDate.getDate() - 1);
 
         const daysDiff = (endDate - startDate) / (1000 * 60 * 60 * 24); // Number of days between the two dates
-      
+
         for (let i = 0; i <= daysDiff; i++) {
           const currentDate = new Date(startDate);
           currentDate.setDate(currentDate.getDate() + i);
@@ -42,21 +53,24 @@ const DateRangePickerDemo = ({ onSubmit }) => {
         }
       });
       setDisabledDates(days);
-      // const checkIn = new Date();
-      // checkIn.setHours(0, 0, 0, 0);
-      // const checkOut = new Date(checkIn);
-      // checkOut.setDate(checkOut.getDate() + 1);
-      // setDateRange([checkIn, checkOut]);
-      // console.log(days,11111111111);
-
     }
 
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        closeCalendar();
+      }
+    };
+
     getDisabledDates();
-  }, [])
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const isDateDisabled = (date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     // Check if date is before today
     if (date.date < today) {
       return true;
@@ -68,34 +82,72 @@ const DateRangePickerDemo = ({ onSubmit }) => {
     );
   }
   const handleDateClick = (date) => {
-    if (selectedRange.startDate && !selectedRange.endDate) {
-      if (date >= selectedRange.startDate) {
-        const range = { ...selectedRange, endDate: date };
+    console.log(date, 'date');
+    setShowError(false);
+    if (selectedDates.startDate && !selectedDates.endDate) {
+      if (date >= selectedDates.startDate) {
+        const range = { ...selectedDates, endDate: date };
         if (disabledDates.some(d => d >= range.startDate && d <= range.endDate)) {
           // Range includes disabled dates, do not update state
+          setShowError(true);
           return;
         }
-        setSelectedRange(range);
-        console.log(range);
+        setSelectedDates(range);
       } else {
-        setSelectedRange({ startDate: date, endDate: null });
+        setSelectedDates({ startDate: date, endDate: null });
       }
     } else {
-      setSelectedRange({ startDate: date, endDate: null });
+      setSelectedDates({ startDate: date, endDate: null });
     }
   };
-  
 
+  const openCalendar = () => {
+    setIsCalendarOpen(true);
+  }
+
+  const closeCalendar = () => {
+    setIsCalendarOpen(false);
+  }
 
   return (
-    <CalendarComponentWrapper>
-      <Calendar
-        value={[selectedRange.startDate, selectedRange.endDate]}
-        onClickDay={handleDateClick}
-        tileDisabled={isDateDisabled}
-      />
-    </CalendarComponentWrapper>
+    <>
+      {showError && <Alert severity="error" sx={{
+        width: '90%',
+        margin: '5px auto',
+        placeContent: 'center',
+      }}>Wrong Input</Alert>}
+      <Wrapper>
+        <input
+          type="text"
+          id="date_in"
+          required=""
+          name="date_in"
+          size="35"
+          value={'Check In Check Out'}
+          readOnly
+          onClick={openCalendar}
+        />
+        <CalendarWrapper ref={calendarRef}>
+          {isCalendarOpen &&
+            <Calendar
+              value={[selectedDates.startDate, selectedDates.endDate]}
+              onClickDay={handleDateClick}
+              tileDisabled={isDateDisabled}
+              locale={locale}
+              formatShortWeekday={locale === 'hy' ? (locale, value) =>
+                hy.weekdaysShort[value.getDay()] : undefined
+              }
+              formatMonthYear={locale === 'hy' ? (locale, value) =>
+                `${hy.months[value.getMonth()]} ${value.getFullYear()}` : undefined
+              }
+              formatWeekday={locale === 'hy' ? (locale, value) =>
+                hy.weekdaysLong[value.getDay()] : undefined
+              }
+            />}
+        </CalendarWrapper>
+      </Wrapper>
+    </>
   );
 };
 
-export default DateRangePickerDemo;
+export default CalendarComponent;
