@@ -55,7 +55,7 @@ export default function HotelCard({ room }) {
             component="div"
             marginTop={"2rem"}
           >
-            {room.cost} {t("cost")}
+            {room.price} {t("cost")}
           </Typography>
         </CardContent>
       </CardActionArea>
