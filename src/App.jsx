@@ -7,19 +7,22 @@ import CardPage from "./components/CardPage/CardPage";
 import { Routes, Route } from "react-router-dom";
 import RoomContextProvider from "./Context/RoomsContext";
 import Gallery from "./components/Gallery/Gallery";
+import CalendarContextProvider from "./Context/CalendarContext";
 
 function App() {
   return (
-    <RoomContextProvider>
-      <Navbar />
-      <Routes>
-        <Route path="/contacts" element={<Contact />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/room/:id" element={<CardPage />} />
-        <Route path="/gallery" element={<Gallery />}/>
-      </Routes>
-      <Footer />
-    </RoomContextProvider>
+    <CalendarContextProvider>
+      <RoomContextProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/contacts" element={<Contact />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/room/:id" element={<CardPage />} />
+          <Route path="/gallery" element={<Gallery />} />
+        </Routes>
+        <Footer />
+      </RoomContextProvider>
+    </CalendarContextProvider>
   );
 }
 

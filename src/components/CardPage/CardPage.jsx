@@ -22,7 +22,8 @@ import img2 from "../../assets/CardPageImg/LISimg2.jpg";
 import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
-import CheckInOutCalendar from "../Calendar/CheckInOutCalendar";
+import CalendarComponent from "../Calendar/Calendar";
+import { CalendarContext } from "../../Context/CalendarContext";
 import { Modal } from "@mui/material";
 import ContactForm from "../ContactForm/ContactForm";
 
@@ -33,6 +34,7 @@ const CardPage = () => {
   const [openReservRoom, setOpenReservRoom] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { room } = useContext(RoomContext);
+  const { selectedDates } = useContext(CalendarContext)
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
@@ -56,7 +58,10 @@ const CardPage = () => {
           <p>֊ {t("wifi")}</p>
         </GenInfo>
         <BookBtn>
-          <CheckInOutCalendar />
+          <CalendarComponent />
+          <button onClick={() => {
+            console.log(selectedDates, 'SElectedDates')
+          }}>CALENDAR DATA</button>
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}
