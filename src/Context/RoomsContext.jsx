@@ -7,6 +7,7 @@ const RoomContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("myContextData")) || {}
   );
   const [showModal, setShowModal] = useState(false);
+  const [service,setService] = useState(localStorage.getItem("service",[]))
 
   const [cottages, setCottages] = useState( JSON.parse(localStorage.getItem("cottages")) || []);
   useEffect(() => {
@@ -15,6 +16,9 @@ const RoomContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("cottages", JSON.stringify(cottages));
   }, [cottages]);
+  useEffect(()=>{
+    localStorage.setItem("services",JSON.stringify(service))
+  },[service])
 
 
   return (
@@ -23,6 +27,8 @@ const RoomContextProvider = ({ children }) => {
         room,
         showModal,
         setShowModal,
+        setService,
+        service,
         setRoom,
         cottages,
         setCottages,
