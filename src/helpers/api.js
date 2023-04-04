@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const api = async (method, endpoint, data) => {
   try {
     return await axios({
@@ -14,5 +15,7 @@ const api = async (method, endpoint, data) => {
     console.log(error);
   }
 };
+const url = "http://localhost:3050/api/user";
+
 
 export default api;
