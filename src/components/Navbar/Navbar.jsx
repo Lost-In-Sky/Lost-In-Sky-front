@@ -19,7 +19,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
-import { makeAxiosCall } from "../../helpers/api";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -145,7 +144,6 @@ const Navbar = () => {
             >
               {t("contacts")}
             </StyledLink>
-            <button onClick={makeAxiosCall}>SETULIKKKKKKKKKKKKKKKKKKKKKKKKKKKK</button>
             <LngCont>
               <LanguageSelector onLanguageChange={handleLanguageChange} />
             </LngCont>
