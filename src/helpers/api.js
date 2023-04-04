@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://backend:2000/create/user";
+const url = "http://localhost:3050/api/user";
 
 export const makeAxiosCall = (reservations)=>{
 
