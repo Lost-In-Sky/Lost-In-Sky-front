@@ -4,10 +4,12 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useSearchParams } from 'react-router-dom';
 import { CalendarContext } from '../../Context/CalendarContext';
+import api from '../../helpers/api';
 import { CalendarWrapper, Wrapper } from './Calendar.style';
 import hy from "./hy";
+import PropTypes from 'prop-types';
 
-const CalendarComponent = () => {
+const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
   const [disabledDates, setDisabledDates] = useState([]);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const calendarRef = useRef(null);
@@ -15,6 +17,7 @@ const CalendarComponent = () => {
   const [locale, setLocale] = useState(searchParams.get('lang') || "hy");
   const [showError, setShowError] = useState(false);
   const { setSelectedDates, selectedDates } = useContext(CalendarContext);
+  const pathname = window.location.pathname;
 
   useEffect(() => {
     setLocale(searchParams.get('lang') || "hy");
@@ -23,19 +26,8 @@ const CalendarComponent = () => {
 
   useEffect(() => {
     async function getDisabledDates() {
-      // Backy chi ashxatum Dzel!!!
-      // const id = pathname.slice(-1);
-      // const data = await getReservationById(id);
-      const data = [
-        {
-          checkIn: 'Sun Apr 04 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
-          checkOut: 'Sun Apr 07 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
-        },
-        {
-          checkIn: 'Sun Apr 10 2023 00:00:00 GMT+0400 (Armenia Standard Time)',
-          checkOut: 'Sun Apr 13 2023 00:00:00 GMT+0400 (Armenia Standard Time)'
-        }
-      ];
+      const id = pathname.slice(-1);
+      const { data } = await api("get", `reservation/cottage/${id}`);
 
       const days = [];
 
@@ -82,7 +74,6 @@ const CalendarComponent = () => {
     );
   }
   const handleDateClick = (date) => {
-    console.log(date, 'date');
     setShowError(false);
     if (selectedDates.startDate && !selectedDates.endDate) {
       if (date >= selectedDates.startDate) {
@@ -103,6 +94,7 @@ const CalendarComponent = () => {
 
   const openCalendar = () => {
     setIsCalendarOpen(true);
+    setSelectedDateError(false);
   }
 
   const closeCalendar = () => {
@@ -115,7 +107,12 @@ const CalendarComponent = () => {
         width: '90%',
         margin: '5px auto',
         placeContent: 'center',
-      }}>Wrong Input</Alert>}
+      }}>Wrong Inpu!</Alert>}
+     {selectedDateError && <Alert severity="error" sx={{
+        width: '90%',
+        margin: '5px auto',
+        placeContent: 'center',
+      }}>Select The Dates, Please!</Alert>}
       <Wrapper>
         <input
           type="text"
@@ -148,6 +145,16 @@ const CalendarComponent = () => {
       </Wrapper>
     </>
   );
+};
+
+CalendarComponent.defaultProps = {
+  selectedDateError: false,
+  setSelectedDateError: () => {},
+};
+
+CalendarComponent.propTypes = {
+  selectedDateError: PropTypes.bool,
+  setSelectedDateError: PropTypes.func,
 };
 
 export default CalendarComponent;

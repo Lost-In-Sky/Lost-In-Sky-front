@@ -5,6 +5,11 @@ export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 500px;
+
+  .total-price {
+    align-self: center;
+    font-size: 20px;
+  }
 `;
 
 export const Container = styled.div`
@@ -22,4 +27,14 @@ export const TextFieldStyles = {
 export const SectionWrapper = styled.div`
   margin: 0.7rem 0 0 0.7rem;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
+`;
+
+export const DatesWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

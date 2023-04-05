@@ -31,10 +31,19 @@ const CardPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const slides = [img1, img2];
-  const [openReservRoom, setOpenReservRoom] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { room } = useContext(RoomContext);
-  const { selectedDates } = useContext(CalendarContext)
+  const { selectedDates } = useContext(CalendarContext);
+  const [selectedDateError, setSelectedDateError] = useState(false);
+
+  const handleBooking = () => {
+    if (!selectedDates.startDate) {
+      setSelectedDateError(true);
+
+      return;
+    }
+    setShowModal(true);
+  }
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
@@ -58,17 +67,11 @@ const CardPage = () => {
           <p>֊ {t("wifi")}</p>
         </GenInfo>
         <BookBtn>
-          <CalendarComponent />
-          <button onClick={() => {
-            console.log(selectedDates, 'SElectedDates')
-          }}>CALENDAR DATA</button>
+          <CalendarComponent selectedDateError={selectedDateError} setSelectedDateError={setSelectedDateError} />
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}
-            onClick={() => {
-              setOpenReservRoom((prev) => (prev = !prev));
-              setShowModal(true);
-            }}
+            onClick={handleBooking}
           >
             Check pricing and Book here
           </Button>
@@ -77,8 +80,12 @@ const CardPage = () => {
             onClose={() => setShowModal(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            BackdropProps={{
+              onClick: () => setShowModal(false),
+            }}
+            sx={{ width: '500px', margin: '0 auto' }}
           >
-            <ContactForm />
+            <ContactForm selectedDates={selectedDates}/>
           </Modal>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>

@@ -5,7 +5,7 @@ const api = async (method, endpoint, data) => {
   try {
     return await axios({
       method,
-      url: "http://localhost:2000/api/" + endpoint,
+      url: "http://localhost:5000/api/" + endpoint,
       data: { ...data },
       headers: {
         type: "aplication/json",
