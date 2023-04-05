@@ -43,4 +43,20 @@ export const SelectedImageWrapper = styled.div`
     border-radius: 8px;
     cursor: pointer;
   }
+
+  .slick-right {
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+    &:before{
+      content: '→';
+      font-family: 'slick';
+      font-size: 3.5rem;
+      line-height: 1;
+      opacity: .75;
+      color: white;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
 `;

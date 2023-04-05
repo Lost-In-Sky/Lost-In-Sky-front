@@ -84,6 +84,7 @@ function Gallery() {
             alt={`Image ${selectedImage + 1}`}
             className="selected"
           />
+          <button className="slick-right"></button>
         </SelectedImageWrapper>
       )}
     </GalleryWrapper>
