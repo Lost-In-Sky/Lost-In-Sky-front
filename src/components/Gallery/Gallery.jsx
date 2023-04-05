@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import image1 from "../../assets/GalleryImg/image1.jpeg";
 import image2 from "../../assets/GalleryImg/image2.jpeg";
 import image3 from "../../assets/GalleryImg/image3.jpeg";
@@ -23,6 +23,7 @@ import {
   SelectedImageWrapper,
   GalleryWrapper,
 } from "./Gallery.style";
+import { Modal } from "@mui/material";
 
 function Gallery() {
   const images = [
@@ -47,19 +48,31 @@ function Gallery() {
     image19,
   ];
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showImage, setShowImage] = useState(false);
 
   const handleClick = (index) => {
     setSelectedImage(index);
+    setShowImage(true);
+    document.body.style.overflow = 'auto !important';
   };
 
-  useEffect(() => {
-    if (selectedImage) {
-      document.body.classList.add("locked");
-    } else {
-      document.body.classList.remove("locked");
+  const previousImage = () => {
+    if (selectedImage !== 0) {
+      setSelectedImage(selectedImage - 1)
     }
-  }, [selectedImage]);
+    else {
+      setSelectedImage(images.length - 1)
+    }
+  }
 
+  const nextImage = () => {
+    if (selectedImage !== images.length - 1) {
+      setSelectedImage(selectedImage + 1)
+    }
+    else {
+      setSelectedImage(0)
+    }
+  }
   return (
     <GalleryWrapper>
       <ImagesWrapper>
@@ -67,26 +80,34 @@ function Gallery() {
           <div key={index} className="gallery-image-wrapper">
             <img
               src={image}
-              alt={`Image ${index + 1}`}
+              alt={`${index + 1}`}
               className="gallery-image"
               onClick={() => handleClick(index)}
             />
           </div>
         ))}
       </ImagesWrapper>
-      {selectedImage !== null && (
+      <Modal
+        open={showImage}
+        onClose={() => setShowImage(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="image-modal"
+        BackdropProps={{ onClick: () => setShowImage(false) }}
+        disableScrollLock={true}
+      >
         <SelectedImageWrapper
-          onClick={() => setSelectedImage(null)}
           className={selectedImage !== null ? "fade-in" : ""}
         >
+          <button className="slick-left" onClick={previousImage}></button>
           <img
             src={images[selectedImage]}
-            alt={`Image ${selectedImage + 1}`}
+            alt={`${selectedImage + 1}`}
             className="selected"
           />
-          <button className="slick-right"></button>
+          <button className="slick-right" onClick={nextImage}></button>
         </SelectedImageWrapper>
-      )}
+      </Modal>
     </GalleryWrapper>
   );
 }

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const GalleryWrapper = styled.div`
-margin:2rem;
+  margin: 2rem;
 `
+
 export const ImagesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -23,40 +24,65 @@ export const ImagesWrapper = styled.div`
 `;
 
 export const SelectedImageWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
 
-
-
   .selected {
     max-height: 90vh;
     max-width: 90vw;
     object-fit: contain;
     border-radius: 8px;
-    cursor: pointer;
   }
 
-  .slick-right {
+  .slick-right, .slick-left {
+    position: absolute;
+    top: 50%;
     color: transparent;
     border: none;
     outline: none;
     background: transparent;
+    cursor: pointer;
+
     &:before{
-      content: '→';
       font-family: 'slick';
-      font-size: 3.5rem;
+      font-size: 55px;
       line-height: 1;
       opacity: .75;
       color: white;
       -webkit-font-smoothing: antialiased;
+
+      @media (max-width: 599px) {
+        font-size: 42px;
+      }
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .slick-right {
+    right: 7%;
+
+    &:before {
+      content: '→';
+    }
+  }
+
+  .slick-left {
+    left: 7%;
+
+    &:before {
+      content: '←';
     }
   }
 `;
