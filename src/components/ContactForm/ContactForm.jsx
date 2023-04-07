@@ -11,13 +11,13 @@ import { RoomContext } from "../../Context/RoomsContext";
 import api from "../../helpers/api";
 import { useTranslation } from "react-i18next";
 
-const ContactForm = ({ selectedDates }) => {
+const ContactForm = ({ selectedDates, setShowModal }) => {
   const { service } = useContext(RoomContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    phone: "",
-    services: [],
+    phoneNumber: "",
+    service: [],
   });
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -70,7 +70,7 @@ const ContactForm = ({ selectedDates }) => {
       
       setFormData({
         ...formData,
-        services: [...formData.services, e.target.id],
+        service: [...formData.service, e.target.id],
       });
     } else {
       service.forEach((element) => {
@@ -82,7 +82,7 @@ const ContactForm = ({ selectedDates }) => {
 
       setFormData({
         ...formData,
-        services: formData.services.filter((a) => e.target.id !== a),
+        service: formData.service.filter((a) => e.target.id !== a),
       });
     }
   };
@@ -103,10 +103,11 @@ const ContactForm = ({ selectedDates }) => {
       checkOut: checkOutDate,
       totalPrice,
       cottageId: pathname.slice(-1),
-      formData
+      ...formData
     }
 
     await api('post', 'reservation', variables);
+    setShowModal(false);
   };
 
   return (
@@ -150,9 +151,9 @@ const ContactForm = ({ selectedDates }) => {
           required
         />
         <TextField
-          name="phone"
+          name="phoneNumber"
           label={t('phone')}
-          value={formData.phone}
+          value={formData.phoneNumber}
           onChange={handleInputChange}
           margin="normal"
           sx={TextFieldStyles}
@@ -197,11 +198,13 @@ ContactForm.defaultValue = {
   selectedDates: {
     startDate: null,
     endDate: null,
-  }
+  },
+  setShowModal: () => {}
 }
 
 ContactForm.propTypes = {
   selectedDates: PropTypes.any,
+  setShowModal: PropTypes.func
 }
 
 export default ContactForm;

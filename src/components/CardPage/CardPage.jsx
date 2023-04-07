@@ -91,7 +91,7 @@ const CardPage = () => {
             }}
           >
             <Box>
-              <ContactForm selectedDates={selectedDates} />
+              <ContactForm selectedDates={selectedDates} setShowModal={setShowModal} />
             </Box>
           </Modal>
           <p>Check-in 14:00</p>
