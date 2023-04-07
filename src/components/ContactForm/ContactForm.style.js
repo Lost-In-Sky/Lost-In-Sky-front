@@ -7,7 +7,7 @@ export const FormWrapper = styled.form`
   background-color: #F7F7F7;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
-  border: 3px solid rgb(17, 138, 203);;
+  border: 3px solid rgb(17, 138, 203);
 
   .total-price {
     align-self: center;
