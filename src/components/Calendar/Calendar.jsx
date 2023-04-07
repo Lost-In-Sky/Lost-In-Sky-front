@@ -3,11 +3,12 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useSearchParams } from 'react-router-dom';
-import { CalendarContext } from '../../Context/CalendarContext';
 import api from '../../helpers/api';
 import { CalendarWrapper, Wrapper } from './Calendar.style';
 import hy from "./hy";
 import PropTypes from 'prop-types';
+import { RoomContext } from '../../Context/RoomsContext';
+import { useTranslation } from 'react-i18next';
 
 const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
   const [disabledDates, setDisabledDates] = useState([]);
@@ -16,8 +17,9 @@ const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
   const [searchParams] = useSearchParams();
   const [locale, setLocale] = useState(searchParams.get('lang') || "hy");
   const [showError, setShowError] = useState(false);
-  const { setSelectedDates, selectedDates } = useContext(CalendarContext);
+  const { setSelectedDates, selectedDates } = useContext(RoomContext);
   const pathname = window.location.pathname;
+  const { t } = useTranslation();
 
   useEffect(() => {
     setLocale(searchParams.get('lang') || "hy");
@@ -107,12 +109,12 @@ const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
         width: '90%',
         margin: '5px auto',
         placeContent: 'center',
-      }}>Wrong Inpu!</Alert>}
+      }}>{t('wrong_input')}!</Alert>}
      {selectedDateError && <Alert severity="error" sx={{
         width: '90%',
         margin: '5px auto',
         placeContent: 'center',
-      }}>Select The Dates, Please!</Alert>}
+      }}>{t('select_dates')}!</Alert>}
       <Wrapper>
         <input
           type="text"
@@ -120,7 +122,7 @@ const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
           required=""
           name="date_in"
           size="35"
-          value={'Check In Check Out'}
+          value={t('calendar_placeholder')}
           readOnly
           onClick={openCalendar}
         />

@@ -9,6 +9,7 @@ import { Container, DatesWrapper, FormWrapper, SectionWrapper, TextFieldStyles, 
 import PropTypes from 'prop-types'
 import { RoomContext } from "../../Context/RoomsContext";
 import api from "../../helpers/api";
+import { useTranslation } from "react-i18next";
 
 const ContactForm = ({ selectedDates }) => {
   const { service } = useContext(RoomContext);
@@ -22,11 +23,8 @@ const ContactForm = ({ selectedDates }) => {
   const [endDate, setEndDate] = useState('');
   const pathname = window.location.pathname;
   const [totalDays, setTotalDays] = useState(1);
-  // VALOOODDDD!!!!!!!
-  // Chgidem inchqanoves chisht are es localstorage nery, bayc raz uj vorosheles praekti maman qunes
-  // avelacra es klris context i mej et servicnery inch service vor uni konkret es hamary
-  // hmi API ic call em anum vekalem bayc de hena localStorage um pahi ete pahum es
   const [totalPrice, setTotalPrice] = useState(JSON.parse(localStorage.myContextData).price);
+  const { t } = useTranslation();
 
   const formateDate = (date) => {
     return date.toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "-");
@@ -111,17 +109,16 @@ const ContactForm = ({ selectedDates }) => {
   return (
     <Container>
       <FormWrapper onSubmit={handleSubmit}>
-
         <SectionWrapper>
           <DatesWrapper>
             <TitleWrapper>
-              <span>Start Date</span>
+              <span>{t('first_day')}</span>
               <span>
                 {startDate}
               </span>
             </TitleWrapper>
             <TitleWrapper>
-              <span>End Date</span>
+              <span>{t('last_day')}</span>
               <span>
                 {endDate}
               </span>
@@ -129,11 +126,11 @@ const ContactForm = ({ selectedDates }) => {
           </DatesWrapper>
         </SectionWrapper>
         <SectionWrapper>
-          Contact:
+          {t('contact')}:
         </SectionWrapper>
         <TextField
           name="firstName"
-          label="First Name"
+          label={t('first_name')}
           value={formData.firstName}
           onChange={handleInputChange}
           margin="normal"
@@ -142,7 +139,7 @@ const ContactForm = ({ selectedDates }) => {
         />
         <TextField
           name="lastName"
-          label="Last Name"
+          label={t('last_name')}
           value={formData.lastName}
           onChange={handleInputChange}
           margin="normal"
@@ -151,7 +148,7 @@ const ContactForm = ({ selectedDates }) => {
         />
         <TextField
           name="phone"
-          label="Phone"
+          label={t('phone')}
           value={formData.phone}
           onChange={handleInputChange}
           margin="normal"
@@ -159,7 +156,7 @@ const ContactForm = ({ selectedDates }) => {
           required
         />
         <SectionWrapper>
-          Services:
+          {t('services')}:
         </SectionWrapper>
         {service?.map((s) => (
           <FormControlLabel
@@ -172,10 +169,19 @@ const ContactForm = ({ selectedDates }) => {
                 sx={{ padding: '9px 9px 9px 0' }}
               />
             }
-            label={s.type}
+            label={
+              <>
+                <span
+                  style={{
+                    marginRight: '3rem'
+                  }}
+                >{s.type}</span>
+                <span>(+{s.servicePrice})</span>
+              </>
+            }
           />
         ))}
-        <div className="total-price">Total Price {totalPrice} AMD</div>
+        <div className="total-price">{t('total_price')} {totalPrice} {t('cost')}</div>
         <Button type="submit" variant="contained" sx={{ width: '93px', margin: '1rem auto' }}>
           Submit
         </Button>

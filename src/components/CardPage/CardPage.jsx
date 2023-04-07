@@ -23,7 +23,6 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CalendarComponent from "../Calendar/Calendar";
-import { CalendarContext } from "../../Context/CalendarContext";
 import { Modal } from "@mui/material";
 import ContactForm from "../ContactForm/ContactForm";
 
@@ -33,7 +32,7 @@ const CardPage = () => {
   const slides = [img1, img2];
   const [showModal, setShowModal] = useState(false);
   const { room } = useContext(RoomContext);
-  const { selectedDates } = useContext(CalendarContext);
+  const { selectedDates } = useContext(RoomContext);
   const [selectedDateError, setSelectedDateError] = useState(false);
 
   const handleBooking = () => {
@@ -83,9 +82,15 @@ const CardPage = () => {
             BackdropProps={{
               onClick: () => setShowModal(false),
             }}
-            sx={{ width: '500px', margin: '0 auto' }}
+            sx={{
+              width: '500px',
+              margin: '0 auto',
+              '@media (max-width: 600px)': {
+                width: '88%',
+              }
+            }}
           >
-            <ContactForm selectedDates={selectedDates}/>
+            <ContactForm selectedDates={selectedDates} />
           </Modal>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>

@@ -24,5 +24,15 @@ export default {
   follow:"Հետևեք Մեզ",
   check_in: "Ժամանման օր",
   check_out: "Մեկնման օր",
-  services:"Ծառայություններ"
+  services:"Ծառայություններ",
+  wrong_input: "Սխալ Ընտրություն",
+  select_dates: "Ընտրեք Օրերը",
+  calendar_placeholder: "Ընտրել Օրերը",
+  first_day: "Առաջին օր",
+  last_day: "Վերջին օր",
+  first_name: "Անուն",
+  last_name: "Ազգանուն",
+  phone: "Հեռախոս",
+  contact: "Կապ",
+  total_price: "Ընդհանուր Գինը"
 };

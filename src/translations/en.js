@@ -15,5 +15,15 @@ export default {
   book:"Book now",
   check_in: "Check in",
   check_out: "Check out",
-  services:"services"
+  services:"services",
+  wrong_input: "Wrong Input",
+  select_dates: "Select The Dates",
+  calendar_placeholder: "Select Days",
+  first_day: "First Day",
+  last_day: "Last Day",
+  first_name: "First Name",
+  last_name: "Last Name",
+  phone: "Phone",
+  contact: "Contact",
+  total_price: "Total Price"
 };

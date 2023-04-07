@@ -24,5 +24,15 @@ export default {
   follow:"Подписывайтесь",
   check_in: "Дата заезда",
   check_out: "Дата отъезда",
-  services:"услуги"
+  services:"услуги",
+  wrong_input: "Неправильный Выбор",
+  select_dates: "Выберите даты",
+  calendar_placeholder: "Выбор дней",
+  first_day: "Первый день",
+  last_day: "Последний день",
+  first_name: "Имя",
+  last_name: "Фамилия",
+  phone: "Телефон",
+  contact: "Контакт",
+  total_price: "Итоговая цена",
 };

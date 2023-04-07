@@ -8,12 +8,10 @@ import { Routes, Route } from "react-router-dom";
 import RoomContextProvider from "./Context/RoomsContext";
 import Gallery from "./components/Gallery/Gallery";
 import Booking from "./components/Booking/Booking";
-import CalendarContextProvider from "./Context/CalendarContext";
 import Services from "./components/Services/Services";
 
 function App() {
   return (
-    <CalendarContextProvider>
     <RoomContextProvider>
     <Navbar />
       <Routes>
@@ -26,7 +24,6 @@ function App() {
       </Routes>
       <Footer />
     </RoomContextProvider>
-    </CalendarContextProvider>
   );
 }
 
