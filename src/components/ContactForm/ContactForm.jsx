@@ -48,6 +48,7 @@ const ContactForm = ({ selectedDates }) => {
       setStartDate(formateDate(selectedDates.startDate))
       setEndDate(formateDate(selectedDates.endDate))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (event) => {
@@ -61,6 +62,7 @@ const ContactForm = ({ selectedDates }) => {
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       service.forEach((element) => {
+        // eslint-disable-next-line eqeqeq
         if(element.id == e.target.id) {
           setTotalPrice(totalPrice + element.servicePrice * totalDays);
         }
@@ -72,6 +74,7 @@ const ContactForm = ({ selectedDates }) => {
       });
     } else {
       service.forEach((element) => {
+        // eslint-disable-next-line eqeqeq
         if(element.id == e.target.id) {
           setTotalPrice(totalPrice - element.servicePrice * totalDays);
         }

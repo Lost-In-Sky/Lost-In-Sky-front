@@ -23,7 +23,7 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CalendarComponent from "../Calendar/Calendar";
-import { Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import ContactForm from "../ContactForm/ContactForm";
 
 const CardPage = () => {
@@ -90,7 +90,9 @@ const CardPage = () => {
               }
             }}
           >
-            <ContactForm selectedDates={selectedDates} />
+            <Box>
+              <ContactForm selectedDates={selectedDates} />
+            </Box>
           </Modal>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>
@@ -105,6 +107,7 @@ const CardPage = () => {
           {cotages.length > 0
             ? cotages.map(
               (room) =>
+                // eslint-disable-next-line eqeqeq
                 room.id != id && <HotelCard key={room.id} room={room} />
             )
             : "nothing to show"}

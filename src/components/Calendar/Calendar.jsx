@@ -60,6 +60,7 @@ const CalendarComponent = ({ selectedDateError, setSelectedDateError }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const isDateDisabled = (date) => {
     const today = new Date();
