@@ -23,18 +23,26 @@ import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CalendarComponent from "../Calendar/Calendar";
-import { CalendarContext } from "../../Context/CalendarContext";
-import { Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import ContactForm from "../ContactForm/ContactForm";
 
 const CardPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const slides = [img1, img2];
-  const [openReservRoom, setOpenReservRoom] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { room } = useContext(RoomContext);
-  const { selectedDates } = useContext(CalendarContext)
+  const { selectedDates } = useContext(RoomContext);
+  const [selectedDateError, setSelectedDateError] = useState(false);
+
+  const handleBooking = () => {
+    if (!selectedDates.startDate) {
+      setSelectedDateError(true);
+
+      return;
+    }
+    setShowModal(true);
+  }
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
@@ -58,17 +66,11 @@ const CardPage = () => {
           <p>֊ {t("wifi")}</p>
         </GenInfo>
         <BookBtn>
-          <CalendarComponent />
-          <button onClick={() => {
-            console.log(selectedDates, 'SElectedDates')
-          }}>CALENDAR DATA</button>
+          <CalendarComponent selectedDateError={selectedDateError} setSelectedDateError={setSelectedDateError} />
           <Button
             variant="contained"
             style={{ height: "3rem", fontWeight: " bold" }}
-            onClick={() => {
-              setOpenReservRoom((prev) => (prev = !prev));
-              setShowModal(true);
-            }}
+            onClick={handleBooking}
           >
             Check pricing and Book here
           </Button>
@@ -77,8 +79,20 @@ const CardPage = () => {
             onClose={() => setShowModal(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            BackdropProps={{
+              onClick: () => setShowModal(false),
+            }}
+            sx={{
+              width: '500px',
+              margin: '0 auto',
+              '@media (max-width: 600px)': {
+                width: '88%',
+              }
+            }}
           >
-            <ContactForm />
+            <Box>
+              <ContactForm selectedDates={selectedDates} setShowModal={setShowModal} />
+            </Box>
           </Modal>
           <p>Check-in 14:00</p>
           <p>Check-out 12:00</p>
@@ -93,6 +107,7 @@ const CardPage = () => {
           {cotages.length > 0
             ? cotages.map(
               (room) =>
+                // eslint-disable-next-line eqeqeq
                 room.id != id && <HotelCard key={room.id} room={room} />
             )
             : "nothing to show"}

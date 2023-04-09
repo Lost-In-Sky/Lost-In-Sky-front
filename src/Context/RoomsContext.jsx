@@ -8,6 +8,10 @@ const RoomContextProvider = ({ children }) => {
   );
   const [showModal, setShowModal] = useState(false);
   const [service,setService] = useState(localStorage.getItem("service",[]))
+  const [selectedDates, setSelectedDates] = useState({
+    startDate: null,
+    endDate: null,
+  });
 
   const [cottages, setCottages] = useState( JSON.parse(localStorage.getItem("cottages")) || []);
   useEffect(() => {
@@ -32,6 +36,8 @@ const RoomContextProvider = ({ children }) => {
         setRoom,
         cottages,
         setCottages,
+        selectedDates,
+        setSelectedDates,
       }}
     >
       {children}
