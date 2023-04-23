@@ -1,26 +1,60 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   BookingWrapper,
   ContentWrapper,
   BookingTitle,
   TextContent,
-  CalendarBook,
+  CalendarWrapper,
 } from "./Booking.style";
-import { RoomContext } from "../../Context/RoomsContext";
-import Calendar from "../Calendar/Calendar";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import api from "../../helpers/api";
+import CalendarComponent from "../Calendar/Calendar";
+import { Modal } from "@mui/material";
+import ContactForm from "../ContactForm/ContactForm";
+import { Button } from "@mui/material";
+import { RoomContext } from "../../Context/RoomsContext";
+
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (
+    typeof args[0] === "string" &&
+    args[0].startsWith("MUI: You have provided an out-of-range value")
+  ) {
+    return;
+  }
+  originalWarn(...args);
+};
 
 const Booking = () => {
-  const { cottages } = useContext(RoomContext);
-  const [age, setAge] = useState(""); 
+  const [showModal, setShowModal] = useState(false);
+  const { selectedDates, setRoom, setSelectedDates } = useContext(RoomContext);
+  const [selectedDateError, setSelectedDateError] = useState(false);
+  const [cottages, setCottages] = useState([]);
+  const [cottage, setCottage] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
 
+  const handleBooking = () => {
+    if (!selectedDates.startDate) {
+      setSelectedDateError(true);
+
+      return;
+    }
+    setShowModal(true);
+  };
+  useEffect(() => {
+    (async () => {
+      const { data } = await api("get", "cottage");
+      setCottages(data);
+    })();
+  }, []);
   const handleChange = (event) => {
-    setAge(event.target.value);
-    console.log(age);
+    setCottage(event.target.value);
+    setRoom(event.target.value);
+    setShowCalendar(true);
   };
 
   return (
@@ -48,26 +82,67 @@ const Booking = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
+                value={cottage}
                 label="Cottage"
                 onChange={handleChange}
               >
                 {cottages.map((cottage) => (
-                  <MenuItem
-                    key={cottage.id}
-                    value={cottage.id}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                    }}
-                  >
+                  <MenuItem key={cottage.id} value={cottage}>
                     {cottage.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
           </Box>
-          <Calendar />
         </TextContent>
+        {showCalendar && cottage.id ? (
+          <CalendarWrapper>
+            <CalendarComponent
+              selectedDateError={selectedDateError}
+              setSelectedDateError={setSelectedDateError}
+              cottageId={cottage.id}
+            />
+            <Button
+              variant="contained"
+              style={{
+                height: "3rem",
+                fontWeight: " bold",
+                marginTop: "2rem",
+              }}
+              onClick={handleBooking}
+            >
+              Check pricing and Book here
+            </Button>
+            <Modal
+              open={showModal}
+              onClose={() => setShowModal(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+              BackdropProps={{
+                onClick: () => setShowModal(false),
+              }}
+              sx={{
+                width: "500px",
+                margin: "0 auto",
+                "@media (max-width: 600px)": {
+                  width: "88%",
+                },
+              }}
+            >
+              <Box>
+                <ContactForm
+                  selectedDates={selectedDates}
+                  setShowModal={setShowModal}
+                  cottage={cottage}
+                />
+              </Box>
+            </Modal>
+            <p>Check-in 14:00</p>
+            <p>Check-out 12:00</p>
+          </CalendarWrapper>
+        ) : (
+          <></>
+        )}
       </ContentWrapper>
     </BookingWrapper>
   );

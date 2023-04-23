@@ -34,5 +34,6 @@ export default {
   last_name: "Ազգանուն",
   phone: "Հեռախոս",
   contact: "Կապ",
-  total_price: "Ընդհանուր Գինը"
+  total_price: "Ընդհանուր Գինը",
+  success_submit:"Ամրագրումն Հաստատված է"
 };

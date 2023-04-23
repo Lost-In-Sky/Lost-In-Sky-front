@@ -13,7 +13,7 @@ import Services from "./components/Services/Services";
 function App() {
   return (
     <RoomContextProvider>
-    <Navbar />
+      <Navbar />
       <Routes>
         <Route path="/contacts" element={<Contact />} />
         <Route path="/" element={<Home />} />

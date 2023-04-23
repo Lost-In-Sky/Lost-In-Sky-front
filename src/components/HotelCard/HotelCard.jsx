@@ -18,7 +18,6 @@ export default function HotelCard({ room }) {
   const theme = useTheme();
   const [coverImage, setCoverImage] = useState(image);
   const navigate = useNavigate();
-  const { setRoom } = useContext(RoomContext);
   const isMobile = useMediaQuery(theme.breakpoints.down(390));
   useEffect(() => {
     if (room.id == 1) {
@@ -31,7 +30,7 @@ export default function HotelCard({ room }) {
     <Card sx={{ maxWidth: isMobile ? "100%" : 345 }}>
       <CardActionArea
         onClick={() => {
-          setRoom(room);
+         
           window.scrollTo(0, 0);
           navigate(`/room/${room.id}`);
         }}
@@ -55,7 +54,7 @@ export default function HotelCard({ room }) {
             component="div"
             marginTop={"2rem"}
           >
-            {room.cost} {t("cost")}
+            {room.price} {t("cost")}
           </Typography>
         </CardContent>
       </CardActionArea>

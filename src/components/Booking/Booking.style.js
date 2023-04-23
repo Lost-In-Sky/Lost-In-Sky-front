@@ -37,3 +37,16 @@ export const TextContent = styled.div`
     right: 50px;
   }
 `;
+export const CalendarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 50rem;
+  @media (max-width: 700px) {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    width:18rem;
+  }
+`;
