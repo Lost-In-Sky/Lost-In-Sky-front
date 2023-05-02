@@ -25,5 +25,6 @@ export default {
   last_name: "Last Name",
   phone: "Phone",
   contact: "Contact",
-  total_price: "Total Price"
+  total_price: "Total Price",
+  success_submit:"Reservation Submited"
 };

@@ -13,28 +13,38 @@ import {
   GenInfo,
 } from "./CardPage.style";
 import { RoomContext } from "../../Context/RoomsContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import img1 from "../../assets/CardPageImg/LISimg1.jpg";
 import HotelCard from "../HotelCard/HotelCard";
 import img2 from "../../assets/CardPageImg/LISimg2.jpg";
-import { cotages } from "../../mocks/cotagesMock";
 import Button from "@mui/material/Button";
 import { BookBtn } from "./CardPage.style";
 import CalendarComponent from "../Calendar/Calendar";
 import { Box, Modal } from "@mui/material";
 import ContactForm from "../ContactForm/ContactForm";
+import api from "../../helpers/api";
+import Loading from "../Loading";
 
 const CardPage = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const slides = [img1, img2];
   const [showModal, setShowModal] = useState(false);
-  const { room } = useContext(RoomContext);
+  const { room, setRoom } = useContext(RoomContext);
   const { selectedDates } = useContext(RoomContext);
+  const [cottages, setCottages] = useState([]);
   const [selectedDateError, setSelectedDateError] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await api("get", `cottage/${id}`);
+      setRoom(data[0]);
+      const { data: rooms } = await api("get", "cottage");
+      setCottages(rooms);
+    })();
+  }, [id]);
   const handleBooking = () => {
     if (!selectedDates.startDate) {
       setSelectedDateError(true);
@@ -42,7 +52,7 @@ const CardPage = () => {
       return;
     }
     setShowModal(true);
-  }
+  };
   return (
     <MainWrapperCardPage>
       <CardPageWrapper>
@@ -66,10 +76,14 @@ const CardPage = () => {
           <p>֊ {t("wifi")}</p>
         </GenInfo>
         <BookBtn>
-          <CalendarComponent selectedDateError={selectedDateError} setSelectedDateError={setSelectedDateError} />
+          <CalendarComponent
+            selectedDateError={selectedDateError}
+            setSelectedDateError={setSelectedDateError}
+            cottageId={room.id}
+          />
           <Button
             variant="contained"
-            style={{ height: "3rem", fontWeight: " bold" }}
+            style={{ height: "3rem", fontWeight: " bold", marginTop: "2rem" }}
             onClick={handleBooking}
           >
             Check pricing and Book here
@@ -83,15 +97,19 @@ const CardPage = () => {
               onClick: () => setShowModal(false),
             }}
             sx={{
-              width: '500px',
-              margin: '0 auto',
-              '@media (max-width: 600px)': {
-                width: '88%',
-              }
+              width: "500px",
+              margin: "0 auto",
+              "@media (max-width: 600px)": {
+                width: "88%",
+              },
             }}
           >
             <Box>
-              <ContactForm selectedDates={selectedDates} setShowModal={setShowModal} />
+              <ContactForm
+                selectedDates={selectedDates}
+                setShowModal={setShowModal}
+                cottage={room}
+              />
             </Box>
           </Modal>
           <p>Check-in 14:00</p>
@@ -104,13 +122,15 @@ const CardPage = () => {
           <h1>Other Rooms</h1>
         </OtherRooms>
         <BottomCardWrapper>
-          {cotages.length > 0
-            ? cotages.map(
+          {cottages.length > 0 ? (
+            cottages.map(
               (room) =>
                 // eslint-disable-next-line eqeqeq
                 room.id != id && <HotelCard key={room.id} room={room} />
             )
-            : "nothing to show"}
+          ) : (
+            <Loading />
+          )}
         </BottomCardWrapper>
       </RoomsCont>
     </MainWrapperCardPage>

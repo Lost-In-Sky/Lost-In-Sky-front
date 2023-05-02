@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { RoomContext } from "../../Context/RoomsContext";
 import logo from "../../assets/logo.png";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
@@ -19,9 +20,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
-import { makeAxiosCall } from "../../helpers/api";
-import Services from "../Services/Services";
-
+import api from "../../helpers/api";
 const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));

@@ -1,17 +1,27 @@
-import React, { useContext } from "react";
-import { RoomContext } from "../../Context/RoomsContext";
+import React, { useState, useEffect } from "react";
 import { ServicesWrapper } from "../Services/Services.style";
+import api from "../../helpers/api";
 import ServiceCard from "../ServiceCard/ServiceCard";
+import Loading from "../Loading";
 
 const Services = () => {
-  const { service } = useContext(RoomContext);
-  console.log(service);
+  const [servicees, setServices] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const { data: serviceData } = await api("get", "service");
+      setServices(serviceData);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <ServicesWrapper>
-      {service.length > 0
-        ? service.map((servicee) => <ServiceCard name={servicee.type} key={servicee.id} />)
-        : "nothing to show"}
-        
+      {servicees && servicees.length > 0 ? (
+        servicees.map((service) => (
+          <ServiceCard service={service} key={service.id} />
+        ))
+      ) : (
+        <Loading />
+      )}
     </ServicesWrapper>
   );
 };

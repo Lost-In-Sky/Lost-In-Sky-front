@@ -7,23 +7,22 @@ const RoomContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("myContextData")) || {}
   );
   const [showModal, setShowModal] = useState(false);
-  const [service,setService] = useState(localStorage.getItem("service",[]))
+  const [service, setService] = useState(localStorage.getItem("service", []));
   const [selectedDates, setSelectedDates] = useState({
     startDate: null,
     endDate: null,
   });
+  const [successSubmit, setSuccessSubmit] = useState(false);
+  const [cottages, setCottages] = useState(
+    JSON.parse(localStorage.getItem("cottages")) || []
+  );
 
-  const [cottages, setCottages] = useState( JSON.parse(localStorage.getItem("cottages")) || []);
-  useEffect(() => {
-    localStorage.setItem("myContextData", JSON.stringify(room));
-  }, [room]);
   useEffect(() => {
     localStorage.setItem("cottages", JSON.stringify(cottages));
   }, [cottages]);
-  useEffect(()=>{
-    localStorage.setItem("services",JSON.stringify(service))
-  },[service])
-
+  useEffect(() => {
+    localStorage.setItem("services", JSON.stringify(service));
+  }, [service]);
 
   return (
     <RoomContext.Provider
@@ -34,6 +33,8 @@ const RoomContextProvider = ({ children }) => {
         setService,
         service,
         setRoom,
+        successSubmit,
+        setSuccessSubmit,
         cottages,
         setCottages,
         selectedDates,

@@ -21,10 +21,10 @@ export default {
   wifi: "Бесплатный вай-фай",
   picnic: "Собственная площадка для пикника",
   rope: "Гамак",
-  follow:"Подписывайтесь",
+  follow: "Подписывайтесь",
   check_in: "Дата заезда",
   check_out: "Дата отъезда",
-  services:"услуги",
+  services: "услуги",
   wrong_input: "Неправильный Выбор",
   select_dates: "Выберите даты",
   calendar_placeholder: "Выбор дней",
@@ -35,4 +35,5 @@ export default {
   phone: "Телефон",
   contact: "Контакт",
   total_price: "Итоговая цена",
+  success_submit: "Бронирование Отправлено",
 };

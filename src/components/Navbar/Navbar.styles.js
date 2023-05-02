@@ -48,6 +48,7 @@ export const StyledLink = styled.div`
   text-decoration: none;
   margin: 0 20px;
   position: relative;
+  cursor:pointer;
   text-transform: uppercase;
 
   &:before {

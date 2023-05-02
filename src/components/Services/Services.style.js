@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import styled from "styled-components";
 
 export const ServicesWrapper = styled.div`
@@ -10,5 +9,6 @@ export const ServicesWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap:wrap;
 `;
     

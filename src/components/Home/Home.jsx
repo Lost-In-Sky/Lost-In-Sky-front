@@ -10,20 +10,26 @@ import Slide3 from "../../assets/slider-images/slide-3.jpg";
 import Slide4 from "../../assets/slider-images/slide-4.jpg";
 import Slide5 from "../../assets/slider-images/slide-5.jpg";
 import api from "../../helpers/api";
+import Loading from "../Loading";
 
 const Home = () => {
-  const { setCottages, cottages, setService } =
-    useContext(RoomContext);
+  const { setCottages, cottages, setService } = useContext(RoomContext);
 
   useEffect(() => {
     (async () => {
       const { data } = await api("get", "cottage");
-      const { data: serviceData } = await api("get", "service");
       setCottages(data);
+      const { data: serviceData } = await api("get", "service");
       setService(serviceData);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { data: serviceData } = await api("get", "service");
+  //     setService(serviceData);
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const images = [Slide1, Slide2, Slide3, Slide4, Slide5];
   const { t } = useTranslation();
@@ -33,9 +39,11 @@ const Home = () => {
       <MainWrapper>
         <h1>{t("our_rooms")}</h1>
         <CardWrapper>
-          {cottages.length > 0
-            ? cottages.map((room) => <HotelCard key={room.id} room={room} />)
-            : "nothing to show"}
+          {cottages.length > 0 ? (
+            cottages.map((room) => <HotelCard key={room.id} room={room} />)
+          ) : (
+            <Loading />
+          )}
         </CardWrapper>
       </MainWrapper>
     </div>
