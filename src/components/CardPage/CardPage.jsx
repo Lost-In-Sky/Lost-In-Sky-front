@@ -38,7 +38,6 @@ const CardPage = () => {
   const [selectedDateError, setSelectedDateError] = useState(false);
 
   useEffect(() => {
-    console.log(selectedDates);
     (async () => {
       const { data } = await api("get", `cottage/${id}`);
       setRoom(data[0]);
