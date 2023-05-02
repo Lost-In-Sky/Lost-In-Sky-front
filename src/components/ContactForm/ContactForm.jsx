@@ -115,6 +115,7 @@ const ContactForm = ({ selectedDates, setShowModal, cottage }) => {
           ).toString(),
       totalPrice,
       cottageId: cottage.id,
+      cottageName: cottage.name,
       ...formData,
     };
     setSuccessSubmit(true);
